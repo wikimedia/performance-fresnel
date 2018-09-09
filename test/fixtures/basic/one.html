@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<script>
+/* eslint-env browser */
+'use strict';
+const entries = [
+	// For this HTML document
+	{
+		// PerformanceEntry
+		name: 'http://fixtures.test/basic/one.html',
+		entryType: 'navigation',
+		startTime: 0,
+		duration: 7000.03,
+
+		// PerformanceNavigationTiming
+		unloadEventStart: 0,
+		unloadEventEnd: 0,
+		domInteractive: 3000.01,
+		domContentLoadedEventStart: 4000.01,
+		domContentLoadedEventEnd: 4000.02,
+		domComplete: 7000.01,
+		loadEventStart: 7000.02,
+		loadEventEnd: 7000.03,
+
+		// PerformanceResourceTiming
+		initiatorType: 'navigation',
+		toJSON: function () {
+			return this;
+		},
+
+		redirectStart: 0.01,
+		redirectEnd: 800.01,
+		fetchStart: 800.01,
+		domainLookupStart: 800.01,
+		domainLookupEnd: 800.01,
+		connectStart: 800.01,
+		connectEnd: 800.01,
+		requestStart: 900.01,
+		responseStart: 2500.01,
+		responseEnd: 2600.01,
+
+		transferSize: 5900,
+		encodedBodySize: 5050,
+		decodedBodySize: 20050
+	},
+	// For element `<link rel="stylesheet" href="./link.css">`
+	{
+		// PerformanceEntry
+		name: 'http://fixtures.test/basic/link.css',
+		entryType: 'resource',
+		startTime: 0,
+		duration: 3.14,
+
+		// PerformanceResourceTiming
+		initiatorType: 'link',
+		toJSON: function () {
+			return this;
+		},
+
+		transferSize: 315,
+		encodedBodySize: 35,
+		decodedBodySize: 35
+	},
+	// For element `<script async src="./script.js">`
+	{
+		// PerformanceEntry
+		name: 'http://fixtures.test/basic/script.js',
+		entryType: 'resource',
+		startTime: 0,
+		duration: 22.5,
+
+		// PerformanceResourceTiming
+		initiatorType: 'script',
+		toJSON: function () {
+			return this;
+		},
+
+		transferSize: 35797,
+		encodedBodySize: 35023,
+		decodedBodySize: 109395
+	},
+	// For element `<img src="./footer.png">`
+	{
+		// PerformanceEntry
+		name: 'http://fixtures.test/basic/footer.png',
+		entryType: 'resource',
+		startTime: 0,
+		duration: 55.4,
+
+		// PerformanceResourceTiming
+		initiatorType: 'img',
+		toJSON: function () {
+			return this;
+		},
+
+		transferSize: 4031,
+		encodedBodySize: 3331,
+		decodedBodySize: 3331
+	},
+	// For CSS `background-image: url(background.svg)`
+	{
+		// PerformanceEntry
+		name: 'http://fixtures.test/basic/background.svg',
+		entryType: 'resource',
+		startTime: 0,
+		duration: 15.2,
+
+		// PerformanceResourceTiming
+		initiatorType: 'css',
+		toJSON: function () {
+			return this;
+		},
+
+		transferSize: 2702,
+		encodedBodySize: 1966,
+		decodedBodySize: 5405
+	},
+	// For CSS `@font-face`
+	{
+		// PerformanceEntry
+		name: 'http://fixtures.test/basic/Example-Regular.woff2?44c5e',
+		entryType: 'resource',
+		startTime: 0,
+		duration: 20.1,
+
+		// PerformanceResourceTiming
+		initiatorType: 'css',
+		toJSON: function () {
+			return this;
+		},
+
+		transferSize: 19133,
+		encodedBodySize: 18380,
+		decodedBodySize: 18380
+	},
+	// For element `<link rel="shortcut icon" href="./favicon.ico"/>`
+	{
+		// PerformanceEntry
+		name: 'http://fixtures.test/basic/favicon.ico',
+		entryType: 'resource',
+		startTime: 0,
+		duration: 55.4,
+
+		// PerformanceResourceTiming
+		initiatorType: 'other',
+		toJSON: function () {
+			return this;
+		},
+
+		transferSize: 1777,
+		encodedBodySize: 1035,
+		decodedBodySize: 2734
+	},
+	// For header `Link: </basic/logo.png>;rel=preload;as=image`
+	{
+		// PerformanceEntry
+		name: 'http://fixtures.test/basic/logo.png',
+		entryType: 'resource',
+		startTime: 0,
+		duration: 22.5,
+
+		// PerformanceResourceTiming
+		initiatorType: 'link',
+		toJSON: function () {
+			return this;
+		},
+
+		transferSize: 46553,
+		encodedBodySize: 45807,
+		decodedBodySize: 45807
+	},
+	{
+		// PerformancePaintTiming
+		name: 'first-paint',
+		entryType: 'paint',
+		startTime: 7100.02,
+		duration: 0
+	},
+	{
+		// PerformancePaintTiming
+		name: 'first-contentful-paint',
+		entryType: 'paint',
+		startTime: 7100.02,
+		duration: 0
+	}
+];
+window.performance = {
+	getEntriesByType: function ( type ) {
+		return entries.filter( ( entry ) => entry.entryType === type );
+	}
+};
+</script>

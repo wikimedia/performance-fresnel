@@ -1,0 +1,40 @@
+{
+  "scenarios": [
+    {
+      "options": {
+        "url": "http://fixtures.test/transfer/before.html",
+        "reports": [
+          "transfer"
+        ]
+      },
+      "analysed": {
+        "transfer": {
+          "pageWeight": {
+            "mean": 140870,
+            "stdev": 0
+          },
+          "html": {
+            "mean": 5519,
+            "stdev": 0.90
+          },
+          "css": {
+            "mean": 9366,
+            "stdev": 3.21
+          },
+          "js": {
+            "mean": 97603,
+            "stdev": 6.22
+          },
+          "img": {
+            "mean": 28382,
+            "stdev": 0
+          },
+          "other": {
+            "mean": 0,
+            "stdev": 0
+          }
+        }
+      }
+    }
+  ]
+}

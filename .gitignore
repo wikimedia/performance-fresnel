@@ -1,0 +1,6 @@
+/.coverage
+/.fresnel_records
+/.nyc_output
+/node_modules
+/npm-debug.log
+/package-lock.json

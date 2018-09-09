@@ -1,0 +1,13 @@
+warmup: true
+runs: 1
+scenarios:
+  - url: "{TEST_FIXTUREURL}/basic/one.html"
+    viewport:
+      width: 800
+      height: 600
+    reports:
+      - navtiming
+      - paint
+    probes:
+      - screenshot
+      - trace

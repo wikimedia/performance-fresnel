@@ -1,0 +1,92 @@
+{
+  "0": {
+    "navtiming": {
+      "responseStart": {
+        "caption": "Time to first byte",
+        "unit": "ms",
+        "a": {
+          "mean": 2500.01,
+          "stdev": 0
+        },
+        "b": {
+          "mean": 2400.01,
+          "stdev": 0
+        },
+        "diff": -100,
+        "judgement": null
+      },
+      "loadEventEnd": {
+        "caption": "Total page load time",
+        "unit": "ms",
+        "a": {
+          "mean": 7000.03,
+          "stdev": 0
+        },
+        "b": {
+          "mean": 6000.03,
+          "stdev": 0
+        },
+        "diff": -1000,
+        "judgement": true
+      },
+      "processing": {
+        "caption": "Time from responseEnd to domComplete",
+        "unit": "ms",
+        "a": {
+          "mean": 4400,
+          "stdev": 0
+        },
+        "b": {
+          "mean": 3500,
+          "stdev": 0
+        },
+        "diff": -900,
+        "judgement": true
+      },
+      "onLoad": {
+        "caption": "Time from loadEventStart to loadEventEnd",
+        "unit": "ms",
+        "a": {
+          "mean": 0.009999999999308784,
+          "stdev": 0
+        },
+        "b": {
+          "mean": 0.009999999999308784,
+          "stdev": 0
+        },
+        "diff": 0,
+        "judgement": null
+      }
+    },
+    "paint": {
+      "TTFP": {
+        "caption": "Time to first paint",
+        "unit": "ms",
+        "a": {
+          "mean": 7100.02,
+          "stdev": 0
+        },
+        "b": {
+          "mean": 6500.02,
+          "stdev": 0
+        },
+        "diff": -600,
+        "judgement": null
+      },
+      "TTFCP": {
+        "caption": "Total to first contentful paint",
+        "unit": "ms",
+        "a": {
+          "mean": 7100.02,
+          "stdev": 0
+        },
+        "b": {
+          "mean": 6600.02,
+          "stdev": 0
+        },
+        "diff": -500,
+        "judgement": null
+      }
+    }
+  }
+}

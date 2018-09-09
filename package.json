@@ -1,0 +1,76 @@
+{
+	"name": "fresnel",
+	"version": "0.0.4",
+	"license": "MIT",
+	"description": "Create and compare web performance reports.",
+	"keywords": [
+		"performance",
+		"metrics",
+		"perfmatters"
+	],
+	"homepage": "https://github.com/wikimedia/fresnel",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/wikimedia/fresnel"
+	},
+	"bin": "bin/fresnel.js",
+	"files": [
+		"bins",
+		"src",
+		"index.js",
+		"npm-shrinkwrap.json"
+	],
+	"engines": {
+		"node": ">=6.0.0"
+	},
+	"dependencies": {
+		"js-yaml": "3.12.0",
+		"puppeteer": "1.11.0"
+	},
+	"devDependencies": {
+		"eslint-config-wikimedia": "0.9.0",
+		"jsdoc-to-markdown": "4.0.1",
+		"mock-require": "3.0.2",
+		"nyc": "13.1.0",
+		"qunit": "2.8.0",
+		"rimraf": "2.6.3"
+	},
+	"@script.test": "workaround spawn-wrap bug, https://phabricator.wikimedia.org/T212602",
+	"scripts": {
+		"test": "SPAWN_WRAP_SHIM_ROOT=. nyc qunit && eslint . && npm run doc",
+		"doc": "jsdoc2md --template build/api.partial.hbs src/*.js src/**/*.js > API.md",
+		"doc:dump": "jsdoc2md --namepaths src/*.js src/**/*.js"
+	},
+	"nyc": {
+		"exclude": [
+			"test"
+		],
+		"reporter": [
+			"text",
+			"html"
+		],
+		"report-dir": ".coverage",
+		"check-coverage": true,
+		"functions": 95,
+		"lines": 90,
+		"skip-full": true,
+		"watermarks": {
+			"statements": [
+				0,
+				99
+			],
+			"branches": [
+				0,
+				99
+			],
+			"functions": [
+				95,
+				99
+			],
+			"lines": [
+				90,
+				99
+			]
+		}
+	}
+}

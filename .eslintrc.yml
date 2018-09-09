@@ -1,0 +1,9 @@
+root: true
+extends: wikimedia/server
+rules:
+  no-loop-func: off # misunderstands block scope
+  no-tabs: off # https://github.com/wikimedia/eslint-config-wikimedia/issues/116
+  no-var: error
+  prefer-const: error
+  quote-props: [ error, as-needed ] # https://github.com/wikimedia/eslint-config-wikimedia/pull/143
+  strict: error

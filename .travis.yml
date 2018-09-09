@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  # Wikimedia CI runs Node.js 6
+  - "6"
+  # Current stable, Local development.
+  # See also https://phabricator.wikimedia.org/T203239
+  - "10"
+addons:
+  chrome: stable

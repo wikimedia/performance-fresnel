@@ -1,0 +1,181 @@
+{
+  "scenarios": [
+    {
+      "options": {
+        "url": "{TEST_FIXTUREURL}/basic/two.html",
+        "viewport": {
+          "width": 800,
+          "height": 600
+        },
+        "reports": [
+          "navtiming",
+          "paint"
+        ]
+      },
+      "runs": [
+        {
+          "navtiming": {
+            "name": "http://fixtures.test/basic/two.html",
+            "entryType": "navigation",
+            "startTime": 0,
+            "duration": 7000.03,
+            "unloadEventStart": 0,
+            "unloadEventEnd": 0,
+            "domInteractive": 3000.01,
+            "domContentLoadedEventStart": 4000.01,
+            "domContentLoadedEventEnd": 4000.02,
+            "domComplete": 6000.01,
+            "loadEventStart": 6000.02,
+            "loadEventEnd": 6000.03,
+            "initiatorType": "navigation",
+            "toJSON": {},
+            "redirectStart": 0.01,
+            "redirectEnd": 800.01,
+            "fetchStart": 800.01,
+            "domainLookupStart": 800.01,
+            "domainLookupEnd": 800.01,
+            "connectStart": 800.01,
+            "connectEnd": 800.01,
+            "requestStart": 900.01,
+            "responseStart": 2400.01,
+            "responseEnd": 2500.01,
+            "transferSize": 5900,
+            "encodedBodySize": 5050,
+            "decodedBodySize": 20050
+          },
+          "paint": {
+            "first-paint": 6500.02,
+            "first-contentful-paint": 6600.02
+          },
+          "screenshot": {},
+          "trace": {}
+        }
+      ],
+      "combined": {
+        "navtiming": {
+          "name": [
+            "http://fixtures.test/basic/two.html"
+          ],
+          "entryType": [
+            "navigation"
+          ],
+          "startTime": [
+            0
+          ],
+          "duration": [
+            7000.03
+          ],
+          "unloadEventStart": [
+            0
+          ],
+          "unloadEventEnd": [
+            0
+          ],
+          "domInteractive": [
+            3000.01
+          ],
+          "domContentLoadedEventStart": [
+            4000.01
+          ],
+          "domContentLoadedEventEnd": [
+            4000.02
+          ],
+          "domComplete": [
+            6000.01
+          ],
+          "loadEventStart": [
+            6000.02
+          ],
+          "loadEventEnd": [
+            6000.03
+          ],
+          "initiatorType": [
+            "navigation"
+          ],
+          "toJSON": [
+            {}
+          ],
+          "redirectStart": [
+            0.01
+          ],
+          "redirectEnd": [
+            800.01
+          ],
+          "fetchStart": [
+            800.01
+          ],
+          "domainLookupStart": [
+            800.01
+          ],
+          "domainLookupEnd": [
+            800.01
+          ],
+          "connectStart": [
+            800.01
+          ],
+          "connectEnd": [
+            800.01
+          ],
+          "requestStart": [
+            900.01
+          ],
+          "responseStart": [
+            2400.01
+          ],
+          "responseEnd": [
+            2500.01
+          ],
+          "transferSize": [
+            5900
+          ],
+          "encodedBodySize": [
+            5050
+          ],
+          "decodedBodySize": [
+            20050
+          ]
+        },
+        "paint": {
+          "first-paint": [
+            6500.02
+          ],
+          "first-contentful-paint": [
+            6600.02
+          ]
+        },
+        "screenshot": {},
+        "trace": {}
+      },
+      "analysed": {
+        "navtiming": {
+          "responseStart": {
+            "mean": 2400.01,
+            "stdev": 0
+          },
+          "loadEventEnd": {
+            "mean": 6000.03,
+            "stdev": 0
+          },
+          "processing": {
+            "mean": 3500,
+            "stdev": 0
+          },
+          "onLoad": {
+            "mean": 0.009999999999308784,
+            "stdev": 0
+          }
+        },
+        "paint": {
+          "TTFP": {
+            "mean": 6500.02,
+            "stdev": 0
+          },
+          "TTFCP": {
+            "mean": 6600.02,
+            "stdev": 0
+          }
+        }
+      }
+    }
+  ]
+}

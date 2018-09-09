@@ -1,0 +1,40 @@
+{
+  "scenarios": [
+    {
+      "options": {
+        "url": "http://fixtures.test/transfer/after.html",
+        "reports": [
+          "transfer"
+        ]
+      },
+      "analysed": {
+        "transfer": {
+          "pageWeight": {
+            "mean": 140715,
+            "stdev": 4.89
+          },
+          "html": {
+            "mean": 5441,
+            "stdev": 0.47
+          },
+          "css": {
+            "mean": 9370,
+            "stdev": 2.82
+          },
+          "js": {
+            "mean": 97521,
+            "stdev": 5.43
+          },
+          "img": {
+            "mean": 28382,
+            "stdev": 0
+          },
+          "other": {
+            "mean": 0,
+            "stdev": 0
+          }
+        }
+      }
+    }
+  ]
+}
