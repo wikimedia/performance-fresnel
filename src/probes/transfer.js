@@ -16,9 +16,11 @@ function browserCode() {
 }
 
 module.exports = {
-	after( page, writer, addData ) {
-		return page.evaluate( browserCode ).then( ( entries ) => {
-			addData( { entries: entries } );
+	async after( page, writer, addData ) {
+		const response = await page.evaluate( browserCode );
+
+		addData( {
+			entries: response
 		} );
 	}
 };

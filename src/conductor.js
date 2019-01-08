@@ -16,7 +16,6 @@ const Registry = require( './Registry' );
 const Writer = require( './Writer' );
 const hasOwn = Object.prototype.hasOwnProperty;
 const is = require( './util/is' );
-const pony = require( './util/ponyfill' );
 const probesIndex = require( './probes' );
 const recorder = require( './recorder' );
 const reportsIndex = require( './reports' );
@@ -37,12 +36,11 @@ const reportsIndex = require( './reports' );
  * @param {string} label Record label. Must be valid as a directory name.
  * @param {Function} progress Callback for handling internal events
  *  as the recording progresses.
- * @return {Promise}
- * @fulfil {Object} Fresnel record.
+ * @return {Object} Fresnel record.
  * @throws {Error} If configuration is invalid.
  * @throws {Error} If Writer can't create the output directory.
  */
-function record( config, outputDir, label, progress = () => {} ) {
+async function record( config, outputDir, label, progress = () => {} ) {
 	// Step 1: Preparations
 	//
 	// - Apply default config.
@@ -63,10 +61,6 @@ function record( config, outputDir, label, progress = () => {} ) {
 		scenarios: []
 	};
 
-	// Prepare a sequence of async actions that will run in order.
-	// (TODO: Use async-await on Node.js 8+)
-	let seq = Promise.resolve();
-
 	// Step 2: Start the browser
 	//
 	// - Determine the CLI options for the Chromium executable.
@@ -76,13 +70,7 @@ function record( config, outputDir, label, progress = () => {} ) {
 	const launchOpts = ( process.env.CHROMIUM_FLAGS ) ?
 		{ args: process.env.CHROMIUM_FLAGS.split( /\s+/ ) } :
 		{};
-
-	let browser;
-	seq = seq.then( () => {
-		return puppeteer.launch( launchOpts ).then( ( v ) => {
-			browser = v;
-		} );
-	} );
+	const browser = await puppeteer.launch( launchOpts )
 
 	// Step 3: Perform each configured scenario
 	//
@@ -92,61 +80,55 @@ function record( config, outputDir, label, progress = () => {} ) {
 	// - Close the browser.
 
 	progress( 'conductor/record-start', config );
-	for ( const key in config.scenarios ) {
-		const scenario = config.scenarios[ key ];
-		record.scenarios[ key ] = {
-			options: {
-				url: scenario.url,
-				viewport: scenario.viewport,
-				reports: scenario.reports || []
-			},
-			runs: []
-		};
 
-		// Get the Probe objects for this scenario.
-		const probes = new Set();
-		if ( scenario.reports ) {
-			scenario.reports.forEach( ( reportKey ) => {
-				const report = reportReg.get( reportKey );
-				report.probes.forEach( ( key ) => probes.add( probeReg.get( key ) ) );
-			} );
-		}
-		if ( scenario.probes ) {
-			scenario.probes.forEach( ( key ) => probes.add( probeReg.get( key ) ) );
-		}
+	try {
+		for ( const key in config.scenarios ) {
+			const scenario = config.scenarios[ key ];
+			record.scenarios[ key ] = {
+				options: {
+					url: scenario.url,
+					viewport: scenario.viewport,
+					reports: scenario.reports || []
+				},
+				runs: []
+			};
 
-		if ( config.warmup ) {
-			seq = seq.then( () => {
+			// Get the Probe objects for this scenario.
+			const probes = new Set();
+			if ( scenario.reports ) {
+				scenario.reports.forEach( ( reportKey ) => {
+					const report = reportReg.get( reportKey );
+					report.probes.forEach( ( key ) => probes.add( probeReg.get( key ) ) );
+				} );
+			}
+			if ( scenario.probes ) {
+				scenario.probes.forEach( ( key ) => probes.add( probeReg.get( key ) ) );
+			}
+
+			if ( config.warmup ) {
 				progress( 'conductor/warmup' );
-				return recorder.warmup( scenario, browser );
-			} );
-		}
+				await recorder.warmup( scenario, browser );
+			}
 
-		for ( let run = 0; run < config.runs; run++ ) {
-			progress( 'conductor/record-run', { scenario: key, run: run } );
-			seq = seq.then( () => {
-				return recorder.run(
+			for ( let run = 0; run < config.runs; run++ ) {
+				progress( 'conductor/record-run', { scenario: key, run: run } );
+				const probeDatas = await recorder.run(
 					scenario,
 					probes,
 					writer.child( `scenario-${key}-run-${run}` ),
 					browser,
 					progress
 				);
-			} );
-			seq = seq.then( ( probeDatas ) => {
 				record.scenarios[ key ].runs.push( probeDatas );
-			} );
+			}
 		}
-	}
 
-	// Close the browser. Use finally, as this should also happen in case of failure.
-	// This ensures the Fresnel process can exit cleanly after an error
-	// (it can't exit with an active child process).
-	seq = pony.final( seq, () => {
-		if ( browser ) {
-			return browser.close();
-		}
-	} );
+	} finally {
+		// Use finally, as this should also happen in case of failure.
+		// This ensures the Fresnel process can exit cleanly after an error
+		// (it can't exit with an active child process).
+		await browser.close();
+	}
 
 	// Step 4: Analyse the data.
 	//
@@ -208,23 +190,18 @@ function record( config, outputDir, label, progress = () => {} ) {
 			}
 		}
 	}
-	seq = seq.then( () => {
-		for ( const scenario of record.scenarios ) {
-			addCombinedData( scenario );
-			addAnalysedData( scenario );
-		}
-	} );
+
+	for ( const scenario of record.scenarios ) {
+		addCombinedData( scenario );
+		addAnalysedData( scenario );
+	}
 
 	// Step 5: Lastly, write the record to disk.
-	seq = seq.then( () => {
-		fs.writeFileSync( writer.getPath( 'record.json' ), JSON.stringify( record, null, 2 ) );
+	fs.writeFileSync( writer.getPath( 'record.json' ), JSON.stringify( record, null, 2 ) );
 
-		progress( 'conductor/record-end', { label: label } );
+	progress( 'conductor/record-end', { label: label } );
 
-		return record;
-	} );
-
-	return seq;
+	return record;
 }
 
 /**
@@ -233,10 +210,10 @@ function record( config, outputDir, label, progress = () => {} ) {
  * @param {string} outputDir File path
  * @param {string} labelA Record label
  * @param {string} labelB Record label
- * @return {Promise}
+ * @return {Object} Comparison
  * @throws {Error} If records could not be read
  */
-function compare( outputDir, labelA, labelB ) {
+async function compare( outputDir, labelA, labelB ) {
 	const reportReg = new Registry( Registry.isReport, reportsIndex );
 
 	// Step 1: Read the original records
@@ -306,7 +283,7 @@ function compare( outputDir, labelA, labelB ) {
 		return { result, warnings };
 	}
 
-	return Promise.resolve( makeComparison( recordA, recordB ) );
+	return makeComparison( recordA, recordB );
 }
 
 module.exports = { record, compare };

@@ -90,10 +90,9 @@ function help( command ) {
  * @private
  * @param {string} command
  * @param {...string} params
- * @return {Promise}
  * @reject {number} Process exit code
  */
-function cli( command, ...params ) {
+async function cli( command, ...params ) {
 	if ( command === 'record' ) {
 		// Read config file from current working directory
 		const file = path.join( process.cwd(), '.fresnel.yml' );
@@ -104,10 +103,10 @@ function cli( command, ...params ) {
 		if ( params[ 1 ] ) {
 			// unknown parameter
 			help( 'record' );
-			return Promise.reject( 1 );
+			throw 1;
 		}
 
-		return conductor.record(
+		return await conductor.record(
 			config,
 			outputDir,
 			label,
@@ -122,36 +121,37 @@ function cli( command, ...params ) {
 		if ( !before || !after || params[ 2 ] ) {
 			// missing or unknown parameters
 			help( 'compare' );
-			return Promise.reject( 1 );
+			throw 1;
 		}
 
-		return conductor.compare( outputDir, before, after )
-			.then( ( compared ) => {
-				printer.comparison( console.log, compared.result );
-				if ( compared.warnings.length ) {
-					// TODO: Print warnings
-					return Promise.reject( 1 );
-				}
-			} );
+		const compared = await conductor.compare( outputDir, before, after );
+
+		printer.comparison( console.log, compared.result );
+		if ( compared.warnings.length ) {
+			// TODO: Print warnings
+			throw 1;
+		}
+
+		return compared;
 	}
 
 	if ( command === 'version' ) {
 		const version = require( '../package.json' ).version;
 		console.log( `Fresnel ${version}` );
 
-		return Promise.resolve();
+		return;
 	}
 
 	if ( command === 'help' || !command ) {
 		help( params[ 0 ] );
 
-		return Promise.resolve();
+		return;
 	}
 
 	console.error( `fresnel: Unknown command - ${command}` );
 	help();
 
-	return Promise.reject( 1 );
+	throw 1;
 }
 
 module.exports = cli;

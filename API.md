@@ -247,12 +247,12 @@ Interacts with: [puppeteer/Browser](https://pptr.dev/#?product=Puppeteer&version
 
 
 * [conductor](#module_conductor)
-    * [~record(config, outputDir, label, progress)](#module_conductor..record) ⇒ <code>Promise</code>
-    * [~compare(outputDir, labelA, labelB)](#module_conductor..compare) ⇒ <code>Promise</code>
+    * [~record(config, outputDir, label, progress)](#module_conductor..record) ⇒ <code>Object</code>
+    * [~compare(outputDir, labelA, labelB)](#module_conductor..compare) ⇒ <code>Object</code>
 
 <a name="module_conductor..record"></a>
 
-### conductor~record(config, outputDir, label, progress) ⇒ <code>Promise</code>
+### conductor~record(config, outputDir, label, progress) ⇒ <code>Object</code>
 Create a Fresnel record.
 
 This runs the scenarios from the given configuration object, and saves the
@@ -264,12 +264,12 @@ like MediaWiki, the hostname and port of the web server may vary in each
 CI or development environment.
 
 **Kind**: inner method of [<code>conductor</code>](#module_conductor)  
+**Returns**: <code>Object</code> - Fresnel record.  
 **Throws**:
 
 - <code>Error</code> If configuration is invalid.
 - <code>Error</code> If Writer can't create the output directory.
 
-**Fulfil**: <code>Object</code> Fresnel record.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -280,10 +280,11 @@ CI or development environment.
 
 <a name="module_conductor..compare"></a>
 
-### conductor~compare(outputDir, labelA, labelB) ⇒ <code>Promise</code>
+### conductor~compare(outputDir, labelA, labelB) ⇒ <code>Object</code>
 Compare two Fresnel records.
 
 **Kind**: inner method of [<code>conductor</code>](#module_conductor)  
+**Returns**: <code>Object</code> - Comparison  
 **Throws**:
 
 - <code>Error</code> If records could not be read

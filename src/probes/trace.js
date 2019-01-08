@@ -8,15 +8,15 @@
  */
 
 module.exports = {
-	before( page, writer ) {
+	async before( page, writer ) {
 		// Start tracing
-		return page.tracing.start( {
+		await page.tracing.start( {
 			path: writer.getPath( 'trace.json' )
 		} );
 	},
 
-	after( page ) {
+	async after( page ) {
 		// Stop tracing
-		return page.tracing.stop();
+		await page.tracing.stop();
 	}
 };

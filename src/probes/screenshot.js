@@ -8,8 +8,8 @@
  */
 
 module.exports = {
-	after( page, writer ) {
-		return page.screenshot( {
+	async after( page, writer ) {
+		await page.screenshot( {
 			path: writer.getPath( 'image.png' )
 		} );
 	}

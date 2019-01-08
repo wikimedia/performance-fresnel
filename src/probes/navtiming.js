@@ -15,9 +15,8 @@ function browserCode() {
 }
 
 module.exports = {
-	after( page, writer, addData ) {
-		return page.evaluate( browserCode ).then( ( response ) => {
-			addData( response );
-		} );
+	async after( page, writer, addData ) {
+		const response = await page.evaluate( browserCode );
+		addData( response );
 	}
 };

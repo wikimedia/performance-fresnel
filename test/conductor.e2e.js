@@ -49,23 +49,25 @@ QUnit.module( 'e2e/conductor', ( hooks ) => {
 
 		QUnit.test( 'invalid', ( assert ) => {
 			// Reject
-			assert.throws( () => {
-				const config = {
-					scenarios: [
-						{ viewport: { width: 1, height: 1 } }
-					]
-				};
-				conductor.record( config, tmpDir, 'label' );
-			}, /Validation/, 'missing url' );
+			const config = {
+				scenarios: [
+					{ viewport: { width: 1, height: 1 } }
+				]
+			};
+			assert.rejects( conductor.record( config, tmpDir, 'label' ),
+				/Validation/,
+				'missing url'
+			);
 
-			assert.throws( () => {
-				const config = {
-					scenarios: [
-						{ url: '/', viewport: { width: 'x' } }
-					]
-				};
-				conductor.record( config, tmpDir, 'label' );
-			}, /Validation/, 'bad viewport' );
+			const config2 = {
+				scenarios: [
+					{ url: '/', viewport: { width: 'x' } }
+				]
+			};
+			assert.rejects( conductor.record( config2, tmpDir, 'label' ),
+				/Validation/,
+				'bad viewport'
+			);
 		} );
 	} );
 

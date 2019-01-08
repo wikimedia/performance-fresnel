@@ -1,9 +1,12 @@
 root: true
-extends: wikimedia/server
+extends:
+  - wikimedia/node
+  - wikimedia/language/es2017
+env:
+  es6: true
 rules:
   no-loop-func: off # misunderstands block scope
   no-tabs: off # https://github.com/wikimedia/eslint-config-wikimedia/issues/116
-  no-var: error
+  one-var: off # wikimedia/language/es6, also for es2015+
   prefer-const: error
-  quote-props: [ error, as-needed ] # https://github.com/wikimedia/eslint-config-wikimedia/pull/143
   strict: error

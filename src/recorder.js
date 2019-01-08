@@ -10,20 +10,6 @@
  */
 
 /**
- * @ignore
- * @param {Function[]} fns Array of callbacks to call serially, awaiting any
- *  returned promises in-between.
- * @return {Promise}
- */
-function chainAsyncFunctions( fns ) {
-	let chain = Promise.resolve();
-	for ( const fn of fns ) {
-		chain = chain.then( () => Promise.resolve( fn() ) );
-	}
-	return chain;
-}
-
-/**
  * Replace curly-brace placeholders with values from the given object.
  *
  *     expandString( 'Hello {PLANET}', { PLANET: 'World' } );
@@ -56,10 +42,9 @@ function expandString( str, vars ) {
  * @param {Writer} writer File writer for this scenario
  * @param {external:puppeteer/Browser} browser
  * @param {Function} progress
- * @return {Promise}
- * @fulfil {Object} Probe data objects.
+ * @return {Object} Probe data objects.
  */
-function run( options, probes, writer, browser, progress ) {
+async function run( options, probes, writer, browser, progress ) {
 	const url = expandString( options.url, process.env );
 
 	// This will store the data collected by probes, keyed by probe name.
@@ -74,49 +59,39 @@ function run( options, probes, writer, browser, progress ) {
 	// each run, and create the tab within that. Puppeteer refers to temporary profiles
 	// as "incognito contexts", but.. this doesn't actually involve "Incognito mode".
 
-	let context;
-	let page;
-	return browser.createIncognitoBrowserContext()
-		.then( ( v ) => {
-			context = v;
-			return context.newPage();
-		} )
-		.then( ( v ) => {
-			page = v;
-			return page.setViewport( options.viewport );
-		} )
-		.then( () => {
-			// Run 'setup' callbacks
-			const fns = Array.from( probes ).map( ( probe ) => {
-				return () => probe.before && probe.before(
-					page,
-					writer.prefix( probe.name + '--' )
-				);
-			} );
-			return chainAsyncFunctions( fns );
-		} )
-		.then( () => {
-			// Load the url
-			progress( 'recorder/navigate', url );
-			return page.goto( url );
-		} )
-		.then( () => {
-			// Run 'collect' callbacks
-			const fns = Array.from( probes ).map( ( probe ) => {
-				return () => probe.after && probe.after(
-					page,
-					writer.prefix( probe.name + '--' ),
-					( data ) => { Object.assign( datas[ probe.name ], data ); }
-				);
-			} );
-			return chainAsyncFunctions( fns );
-		} )
-		.then( () => {
-			return context.close();
-		} )
-		.then( () => {
-			return datas;
-		} );
+	const context = await browser.createIncognitoBrowserContext();
+	const page = await context.newPage();
+
+	await page.setViewport( options.viewport );
+
+	// Run 'setup' callbacks
+	for ( const probe of probes ) {
+		if ( probe.before ) {
+			await probe.before(
+				page,
+				writer.prefix( probe.name + '--' )
+			);
+		}
+	}
+
+	// Load the url
+	progress( 'recorder/navigate', url );
+	await page.goto( url );
+
+	// Run 'collect' callbacks
+	for ( const probe of probes ) {
+		if ( probe.after ) {
+			await probe.after(
+				page,
+				writer.prefix( probe.name + '--' ),
+				( data ) => { Object.assign( datas[ probe.name ], data ); }
+			);
+		}
+	}
+
+	await context.close();
+
+	return datas;
 }
 
 /**
@@ -128,28 +103,16 @@ function run( options, probes, writer, browser, progress ) {
  * @param {string} options.url
  * @param {Object} options.viewport
  * @param {external:puppeteer/Browser} browser
- * @return {Promise}
  */
-function warmup( options, browser ) {
+async function warmup( options, browser ) {
 	const url = expandString( options.url, process.env );
 
-	let context;
-	let page;
-	return browser.createIncognitoBrowserContext()
-		.then( ( v ) => {
-			context = v;
-			return context.newPage();
-		} )
-		.then( ( v ) => {
-			page = v;
-			return page.setViewport( options.viewport );
-		} )
-		.then( () => {
-			return page.goto( url );
-		} )
-		.then( () => {
-			return context.close();
-		} );
+	const context = await browser.createIncognitoBrowserContext();
+	const page = await context.newPage();
+
+	await page.setViewport( options.viewport );
+	await page.goto( url );
+	await context.close();
 }
 
 module.exports = { run, warmup };
