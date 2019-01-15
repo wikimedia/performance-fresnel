@@ -35,7 +35,9 @@ This project is documented with [JSDoc](http://usejsdoc.org/). [API.md](./API.md
 
 ## Tests
 
-This project is tested with [QUnit](https://api.qunitjs.com/assert/), using [nyc](https://istanbul.js.org/) for code coverage. The coverage report gets generated as part of the `npm run test` command. The nyc tool is configured in `package.json`. Run `npx nyc help config` to view its option documentation. View the code coverage report in a browser by opening the `.coverage/index.html` file.
+This project is tested with [QUnit](https://api.qunitjs.com/assert/), using [nyc](https://istanbul.js.org/) for code coverage. The coverage report gets generated as part of the `npm run test` command. The nyc tool is configured in `package.json`. Run `npx nyc help config` to view its option documentation.
+
+View the latest code coverage report at <https://doc.wikimedia.org/cover/fresnel/>. Or, open `coverage/index.html` locally in a browser after running the tests.
 
 ## Release
 

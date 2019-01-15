@@ -49,7 +49,7 @@
 			"text",
 			"html"
 		],
-		"report-dir": ".coverage",
+		"report-dir": "coverage",
 		"check-coverage": true,
 		"functions": 95,
 		"lines": 90,
