@@ -15,8 +15,8 @@
 	},
 	"bin": "bin/fresnel.js",
 	"files": [
-		"bins",
-		"src",
+		"bin/",
+		"src/",
 		"index.js",
 		"npm-shrinkwrap.json"
 	],
