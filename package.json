@@ -35,9 +35,8 @@
 		"qunit": "2.9.1",
 		"rimraf": "2.6.3"
 	},
-	"@script.test": "workaround spawn-wrap bug, https://phabricator.wikimedia.org/T212602",
 	"scripts": {
-		"test": "SPAWN_WRAP_SHIM_ROOT=. nyc qunit && eslint . && npm run doc",
+		"test": "nyc qunit && eslint . && npm run doc",
 		"doc": "jsdoc2md --template build/api.partial.hbs src/*.js src/**/*.js > API.md",
 		"doc:dump": "jsdoc2md --namepaths src/*.js src/**/*.js"
 	},
