@@ -42,9 +42,6 @@ A scenario consists of the following options:
   - [`screenshot`](./API.md#module_probes/screenshot)
   - [`trace`](./API.md#module_probes/trace)
 
-By default, Fresnel ships with a configuration file aimed at testing a
-MediaWiki installation. Once Fresnel is ready for use, this will be moved
-out and instead maintained and versioned in MediaWiki's Git repository. (TODO)
 
 ## Usage
 
