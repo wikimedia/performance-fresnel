@@ -94,17 +94,17 @@ function help( command ) {
  */
 async function cli( command, ...params ) {
 	if ( command === 'record' ) {
-		// Read config file from current working directory
-		const file = path.join( process.cwd(), '.fresnel.yml' );
-		const config = yaml.safeLoad( fs.readFileSync( file, 'utf8' ) );
-		const outputDir = process.env.FRESNEL_DIR || '.fresnel_records';
-
 		const label = params[ 0 ] || 'default';
 		if ( params[ 1 ] ) {
 			// unknown parameter
 			help( 'record' );
 			throw 1;
 		}
+
+		// Read config file from current working directory
+		const file = path.join( process.cwd(), '.fresnel.yml' );
+		const config = yaml.safeLoad( fs.readFileSync( file, 'utf8' ) );
+		const outputDir = process.env.FRESNEL_DIR || '.fresnel_records';
 
 		return await conductor.record(
 			config,
