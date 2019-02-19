@@ -1,13 +1,13 @@
 ### scenario 0: navtiming
 
-|----------------------------------------------------|-------------------|-------------------|-----------|---|
-| Metric                                             |            Before |             After |      Diff |   |
-|----------------------------------------------------|-------------------|-------------------|-----------|---|
-| Time to first byte (responseStart)                 |  2.400 s (± 0 ms) |  2.500 s (± 0 ms) |  + 100 ms |   |
-| Total page load time (loadEventEnd)                |  6.000 s (± 0 ms) |  7.000 s (± 0 ms) | + 1.000 s | ✘ |
-| Time from responseEnd to domComplete (processing)  |  3.500 s (± 0 ms) |  4.400 s (± 0 ms) |  + 900 ms | ✘ |
-| Time from loadEventStart to loadEventEnd (onLoad)  | < 0.1 ms (± 0 ms) | < 0.1 ms (± 0 ms) |      0 ms |   |
-|----------------------------------------------------|-------------------|-------------------|-----------|---|
+|----------------------------------------------------|------------------|------------------|-----------|---|
+| Metric                                             |           Before |            After |      Diff |   |
+|----------------------------------------------------|------------------|------------------|-----------|---|
+| Time to first byte (responseStart)                 | 2.400 s (± 0 ms) | 2.500 s (± 0 ms) |  + 100 ms |   |
+| Total page load time (loadEventEnd)                | 6.000 s (± 0 ms) | 7.000 s (± 0 ms) | + 1.000 s | ✘ |
+| Time from responseEnd to domComplete (processing)  | 3.500 s (± 0 ms) | 4.400 s (± 0 ms) |  + 900 ms | ✘ |
+| Time from loadEventStart to loadEventEnd (onLoad)  | <0.1 ms (± 0 ms) | <0.1 ms (± 0 ms) |      0 ms |   |
+|----------------------------------------------------|------------------|------------------|-----------|---|
 
 ### scenario 0: paint
 

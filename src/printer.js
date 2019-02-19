@@ -90,8 +90,8 @@ function format( num, unit, options = {} ) {
 		return `${prefix}${abs} ${unit}`;
 	}
 	if ( abs > 0 && abs < 1 ) {
-		const fraction = Math.ceil( num * 10 );
-		return `< ${prefix}0.${fraction} ${unit}`;
+		const fraction = Math.ceil( abs * 10 );
+		return `${prefix}<0.${fraction} ${unit}`;
 	}
 	if ( unit === 'ms' ) {
 		const s = Math.trunc( abs / 1000 );
