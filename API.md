@@ -21,6 +21,11 @@ config file.</p>
 <p>Interacts with: <a href="https://pptr.dev/#?product=Puppeteer&amp;version=v1.11.0&amp;show=api-class-browser">puppeteer/Browser</a>,
 <a href="#Writer">Writer</a>, <a href="#Probe">Probe</a>, and <a href="#Report">Report</a>.</p>
 </dd>
+<dt><a href="#module_printer">printer</a></dt>
+<dd><p>The text printer for the Fresnel command-line interface.</p>
+<p>This module is invoked by <a href="#module_cli">cli</a> to turn information from
+<a href="#module_conductor">conductor</a> into lines of text.</p>
+</dd>
 <dt><a href="#module_probes/navtiming">probes/navtiming</a></dt>
 <dd><p>Get data from the Navigation Timing API in the browser.</p>
 </dd>
@@ -295,6 +300,63 @@ Compare two Fresnel records.
 | outputDir | <code>string</code> | File path |
 | labelA | <code>string</code> | Record label |
 | labelB | <code>string</code> | Record label |
+
+<a name="module_printer"></a>
+
+## printer
+The text printer for the Fresnel command-line interface.
+
+This module is invoked by [cli](#module_cli) to turn information from
+[conductor](#module_conductor) into lines of text.
+
+
+* [printer](#module_printer)
+    * [~format(num, unit, [options])](#module_printer..format) ⇒ <code>string</code>
+    * [~progress(writeln, event, message)](#module_printer..progress)
+    * [~printTable(writeln, rows)](#module_printer..printTable)
+    * [~comparison(writeln, compared)](#module_printer..comparison)
+
+<a name="module_printer..format"></a>
+
+### printer~format(num, unit, [options]) ⇒ <code>string</code>
+**Kind**: inner method of [<code>printer</code>](#module_printer)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| num | <code>number</code> |  |
+| unit | <code>string</code> | One of "ms" or "B" (from [Report](#Report)) |
+| [options] | <code>Object</code> |  |
+
+<a name="module_printer..progress"></a>
+
+### printer~progress(writeln, event, message)
+**Kind**: inner method of [<code>printer</code>](#module_printer)  
+
+| Param | Type |
+| --- | --- |
+| writeln | <code>function</code> | 
+| event | <code>string</code> | 
+| message | <code>string</code> \| <code>undefined</code> | 
+
+<a name="module_printer..printTable"></a>
+
+### printer~printTable(writeln, rows)
+**Kind**: inner method of [<code>printer</code>](#module_printer)  
+
+| Param | Type |
+| --- | --- |
+| writeln | <code>function</code> | 
+| rows | <code>Array.&lt;Array&gt;</code> | 
+
+<a name="module_printer..comparison"></a>
+
+### printer~comparison(writeln, compared)
+**Kind**: inner method of [<code>printer</code>](#module_printer)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| writeln | <code>function</code> |  |
+| compared | <code>Object</code> | As produced by [conductor.compare](#module_conductor..compare) |
 
 <a name="module_probes/navtiming"></a>
 

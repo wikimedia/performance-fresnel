@@ -5,7 +5,6 @@
  * This module is invoked by {@link module:cli} to turn information from
  * {@link module:conductor conductor} into lines of text.
  *
- * @private
  * @module printer
  */
 
@@ -73,9 +72,8 @@ function padLast( str, length, pad = ' ' ) {
 }
 
 /**
- * @ignore
  * @param {number} num
- * @param {string} unit
+ * @param {string} unit One of "ms" or "B" (from {@link Report})
  * @param {Object} [options]
  * @return {string}
  */
@@ -167,7 +165,7 @@ function printTable( writeln, rows ) {
 
 /**
 * @param {Function} writeln
-* @param {Object} compared
+* @param {Object} compared As produced by {@link module:conductor~compare conductor.compare}
 */
 function comparison( writeln, compared ) {
 	const head = [
@@ -218,4 +216,4 @@ function comparison( writeln, compared ) {
 	}
 }
 
-module.exports = { progress, comparison, rColor };
+module.exports = { progress, comparison, rColor, format };
