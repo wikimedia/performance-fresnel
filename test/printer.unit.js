@@ -21,5 +21,29 @@ QUnit.module( 'printer', () => {
 			'+ 42 ms',
 			'the answer as difference'
 		);
+
+		assert.strictEqual(
+			printer.format( 851, 'B' ),
+			'851 B',
+			'hundreds of bytes'
+		);
+
+		assert.strictEqual(
+			printer.format( 14372, 'B' ),
+			'14.4 kB',
+			'tens of thousands of bytes'
+		);
+
+		assert.strictEqual(
+			printer.format( 358512, 'B' ),
+			'359 kB',
+			'hundreds of thousands of bytes'
+		);
+
+		assert.strictEqual(
+			printer.format( 1358512, 'B' ),
+			'1.4 MB',
+			'millions of bytes'
+		);
 	} );
 } );

@@ -99,7 +99,21 @@ function format( num, unit, options = {} ) {
 		}
 		return `${prefix}${ms} ms`;
 	}
-	// TODO: 1000+ bytes into 1 KB, etc.)
+	if ( unit === 'B' ) {
+		if ( abs > 1000000 ) {
+			// above 1 MB
+			return `${prefix}${(abs / 1000000).toFixed(1)} MB`;
+		}
+		if ( abs > 100000 ) {
+			// above 100 kB
+			return `${prefix}${(abs / 1000).toFixed(0)} kB`;
+		}
+		if ( abs > 1000 ) {
+			// above 1 kB
+			return `${prefix}${(abs / 1000).toFixed(1)} kB`;
+		}
+	}
+	// handle 0—1000 B, and unknown units
 	const round = Math.round( abs );
 	return `${prefix}${round} ${unit}`;
 }
