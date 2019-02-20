@@ -36,9 +36,9 @@ QUnit.module( 'printer', () => {
 			path.join( __dirname, 'fixtures/negativenearzero-compare.txt' ),
 			'utf8'
 		);
-		assert.strictEqual(
-			out.trim().replace( printer.rColor, '' ),
-			expected.trim(),
+		assert.propEqual(
+			out.trim().replace( printer.rColor, '' ).split( '\n' ),
+			expected.trim().split( '\n' ),
 			'result'
 		);
 	} );

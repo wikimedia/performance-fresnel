@@ -62,9 +62,9 @@ QUnit.module( 'e2e/cli', ( hooks ) => {
 
 		return cli( 'compare', 'one', 'two' ).then( () => {
 			const expected = fs.readFileSync( path.join( __dirname, 'fixtures/basic-compare-forward.txt' ), 'utf8' );
-			assert.strictEqual(
-				out.trim().replace( rColor, '' ),
-				expected.trim(),
+			assert.propEqual(
+				out.trim().replace( rColor, '' ).split( '\n' ),
+				expected.trim().split( '\n' ),
 				'result'
 			);
 		} );
@@ -81,9 +81,9 @@ QUnit.module( 'e2e/cli', ( hooks ) => {
 				path.join( __dirname, 'fixtures/basic-compare-backward.txt' ),
 				'utf8'
 			);
-			assert.strictEqual(
-				out.trim().replace( rColor, '' ),
-				expected.trim(),
+			assert.propEqual(
+				out.trim().replace( rColor, '' ).split( '\n' ),
+				expected.trim().split( '\n' ),
 				'result'
 			);
 		} );
