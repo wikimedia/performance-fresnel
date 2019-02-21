@@ -215,12 +215,11 @@
 			"dev": true
 		},
 		"async": {
-			"version": "2.6.1",
-			"resolved": "https://registry.npmjs.org/async/-/async-2.6.1.tgz",
-			"integrity": "sha512-fNEiL2+AZt6AlAw/29Cr0UDe4sRAHCpEHh54WMz+Bb7QfNcFw4h3loofyJpLeQs4Yx7yuqu/2dLgM5hKOs6HlQ==",
-			"dev": true,
+			"version": "2.6.2",
+			"resolved": "https://registry.npmjs.org/async/-/async-2.6.2.tgz",
+			"integrity": "sha512-H1qVYh1MYhEEFLsP97cVKqCGo7KfCyTt6uEWqsTBr9SO84oK9Uwbyd/yCW+6rKJLHksBNUVWZDAjfS+Ccx0Bbg==",
 			"requires": {
-				"lodash": "^4.17.10"
+				"lodash": "^4.17.11"
 			}
 		},
 		"async-limiter": {
@@ -390,7 +389,6 @@
 			"version": "2.17.1",
 			"resolved": "https://registry.npmjs.org/commander/-/commander-2.17.1.tgz",
 			"integrity": "sha512-wPMUt6FnH2yzG95SA6mzjQOEKUU3aLaDEmzs1ti+1E9h+CsrZghRlqEM/EJ4KscsQVG8uNN4uVreUeT8+drlgg==",
-			"dev": true,
 			"optional": true
 		},
 		"common-sequence": {
@@ -451,9 +449,9 @@
 			}
 		},
 		"debug": {
-			"version": "4.1.0",
-			"resolved": "https://registry.npmjs.org/debug/-/debug-4.1.0.tgz",
-			"integrity": "sha512-heNPJUJIqC+xB6ayLAMHaIrmN9HKa7aQO8MGqKpvCA+uJYVcvR6l5kgdrhRuwPFHU7P5/A1w0BjByPHwpfTDKg==",
+			"version": "4.1.1",
+			"resolved": "https://registry.npmjs.org/debug/-/debug-4.1.1.tgz",
+			"integrity": "sha512-pYAIzeRo8J6KPEaJ0VWOh5Pzkbw/RetuzehGM7QRRX5he4fPHx2rdKMB256ehJCkX+XRQm16eZLqLNS8RSZXZw==",
 			"requires": {
 				"ms": "^2.1.1"
 			}
@@ -578,14 +576,14 @@
 			"dev": true,
 			"requires": {
 				"eslint": "^5.9.0",
+				"eslint-plugin-jquery": "github:wikimedia/eslint-plugin-jquery#5fec3d392af8ac564c2266dbd95a1e107ecf56c3",
 				"eslint-plugin-qunit": "^4.0.0"
-			},
-			"dependencies": {
-				"eslint-plugin-jquery": {
-					"version": "github:wikimedia/eslint-plugin-jquery#5fec3d392af8ac564c2266dbd95a1e107ecf56c3",
-					"from": "github:wikimedia/eslint-plugin-jquery#5fec3d392af8ac564c2266dbd95a1e107ecf56c3"
-				}
 			}
+		},
+		"eslint-plugin-jquery": {
+			"version": "github:wikimedia/eslint-plugin-jquery#5fec3d392af8ac564c2266dbd95a1e107ecf56c3",
+			"from": "github:wikimedia/eslint-plugin-jquery#v1.3.2-wmf.5",
+			"dev": true
 		},
 		"eslint-plugin-qunit": {
 			"version": "4.0.0",
@@ -824,10 +822,9 @@
 			"dev": true
 		},
 		"handlebars": {
-			"version": "4.0.12",
-			"resolved": "https://registry.npmjs.org/handlebars/-/handlebars-4.0.12.tgz",
-			"integrity": "sha512-RhmTekP+FZL+XNhwS1Wf+bTTZpdLougwt5pcgA1tuz6Jcx0fpH/7z0qd71RKnZHBCxIRBHfBOnio4gViPemNzA==",
-			"dev": true,
+			"version": "4.1.0",
+			"resolved": "https://registry.npmjs.org/handlebars/-/handlebars-4.1.0.tgz",
+			"integrity": "sha512-l2jRuU1NAWK6AW5qqcTATWQJvNPEwkM7NEKSiv/gqOsoSQbVoWyqVEY5GS+XPQ88zLNmqASRpzfdm8d79hJS+w==",
 			"requires": {
 				"async": "^2.5.0",
 				"optimist": "^0.6.1",
@@ -1131,8 +1128,7 @@
 		"lodash": {
 			"version": "4.17.11",
 			"resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.11.tgz",
-			"integrity": "sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==",
-			"dev": true
+			"integrity": "sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg=="
 		},
 		"lodash.camelcase": {
 			"version": "4.3.0",
@@ -2317,7 +2313,6 @@
 			"version": "0.6.1",
 			"resolved": "https://registry.npmjs.org/optimist/-/optimist-0.6.1.tgz",
 			"integrity": "sha1-2j6nRob6IaGaERwybpDrFaAZZoY=",
-			"dev": true,
 			"requires": {
 				"minimist": "~0.0.1",
 				"wordwrap": "~0.0.2"
@@ -2326,8 +2321,7 @@
 				"wordwrap": {
 					"version": "0.0.3",
 					"resolved": "https://registry.npmjs.org/wordwrap/-/wordwrap-0.0.3.tgz",
-					"integrity": "sha1-o9XabNXAvAAI03I0u68b7WMFkQc=",
-					"dev": true
+					"integrity": "sha1-o9XabNXAvAAI03I0u68b7WMFkQc="
 				}
 			}
 		},
@@ -2697,8 +2691,7 @@
 		"source-map": {
 			"version": "0.6.1",
 			"resolved": "https://registry.npmjs.org/source-map/-/source-map-0.6.1.tgz",
-			"integrity": "sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==",
-			"dev": true
+			"integrity": "sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g=="
 		},
 		"sprintf-js": {
 			"version": "1.0.3",
@@ -2883,7 +2876,6 @@
 			"version": "3.4.9",
 			"resolved": "https://registry.npmjs.org/uglify-js/-/uglify-js-3.4.9.tgz",
 			"integrity": "sha512-8CJsbKOtEbnJsTyv6LE6m6ZKniqMiFWmm9sRbopbkGs3gMPPfd3Fh8iIA4Ykv5MgaTbqHr4BaoGLJLZNhsrW1Q==",
-			"dev": true,
 			"optional": true,
 			"requires": {
 				"commander": "~2.17.1",
@@ -2928,10 +2920,9 @@
 			"integrity": "sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8="
 		},
 		"walk-back": {
-			"version": "3.0.0",
-			"resolved": "https://registry.npmjs.org/walk-back/-/walk-back-3.0.0.tgz",
-			"integrity": "sha1-I1h4ejXakQMtrV6S+AsSNw2HlcU=",
-			"dev": true
+			"version": "3.0.1",
+			"resolved": "https://registry.npmjs.org/walk-back/-/walk-back-3.0.1.tgz",
+			"integrity": "sha512-umiNB2qLO731Sxbp6cfZ9pwURJzTnftxE4Gc7hq8n/ehkuXC//s9F65IEIJA2ZytQZ1ZOsm/Fju4IWx0bivkUQ=="
 		},
 		"which": {
 			"version": "1.3.1",
