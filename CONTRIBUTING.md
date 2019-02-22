@@ -48,4 +48,4 @@ instead of a `package-lock.json` file.
 * <https://docs.npmjs.com/files/package-locks>
 * <https://docs.npmjs.com/cli/shrinkwrap>
 
-We also [keep a changelog](https://keepachangelog.com/en/1.0.0/). You may want to use the changelog command from [git-extras](https://github.com/tj/git-extras). If you do, invoke it as `CUR_GIT_LOG_FORMAT="* %s (%an)" git changelog`, which sets the format to match the existing entries.
+We also [keep a changelog](https://keepachangelog.com/en/1.0.0/). You may want to use the changelog command from [git-extras](https://github.com/tj/git-extras). If you do, invoke it as `CUR_GIT_LOG_FORMAT="* %s. (%an)" git changelog`, which sets the format to match the existing entries.
