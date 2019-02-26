@@ -78,4 +78,52 @@ QUnit.module( 'util/is', () => {
 			}, msg );
 		}
 	} );
+
+	QUnit.test( 'config()', ( assert ) => {
+		// Accept
+		assert.strictEqual(
+			is.config( {
+				warmup: false,
+				runs: 1,
+				scenarios: [
+					{ url: '/', viewport: { width: 1, height: 1 } }
+				]
+			} ),
+			undefined,
+			'minimal config'
+		);
+
+		assert.strictEqual(
+			is.config( {
+				warmup: false,
+				runs: 1,
+				scenarios: {
+					'A name': { url: '/', viewport: { width: 1, height: 1 } }
+				}
+			} ),
+			undefined,
+			'minimal config with keys for scenarios'
+		);
+
+		// Reject
+		assert.throws( () => {
+			is.config( {
+				warmup: false,
+				runs: 1,
+				scenarios: [
+					{ viewport: { width: 1, height: 1 } }
+				]
+			} );
+		}, /Validation.+"url"/, 'missing url' );
+
+		assert.throws( () => {
+			is.config( {
+				warmup: false,
+				runs: 1,
+				scenarios: [
+					{ url: '/', viewport: { width: 'x' } }
+				]
+			} );
+		}, /Validation.+viewport/, 'bad viewport' );
+	} );
 } );

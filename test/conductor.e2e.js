@@ -5,83 +5,19 @@
 
 const path = require( 'path' );
 
-const mock = require( 'mock-require' );
 const rimraf = require( 'rimraf' );
 
+const conductor = require( '../src/conductor' );
 const fileUrl = require( './util/file-url' );
 const mktmpdir = require( './util/tmpdir' );
 
 QUnit.module( 'e2e/conductor', ( hooks ) => {
-	let conductor, tmpDir;
+	let tmpDir;
 	hooks.beforeEach( () => {
-		conductor = mock.reRequire( '../src/conductor' );
 		tmpDir = mktmpdir( 'fresnel_test' );
 	} );
 	hooks.afterEach( () => {
 		rimraf.sync( tmpDir );
-	} );
-
-	QUnit.module( 'record() - config', ( hooks ) => {
-		hooks.beforeEach( () => {
-			// Stub
-			mock( 'puppeteer', { launch: () => Promise.reject( 'reached mock' ) } );
-			conductor = mock.reRequire( '../src/conductor' );
-		} );
-		hooks.afterEach( () => {
-			// Restore
-			mock.stopAll();
-		} );
-
-		QUnit.test( 'valid', ( assert ) => {
-			// Accept
-			const config = {
-				scenarios: [
-					{ url: '/', viewport: { width: 1, height: 1 } }
-				]
-			};
-
-			assert.rejects(
-				conductor.record( config, tmpDir, 'label' ),
-				/reached mock/,
-				'minimal config'
-			);
-
-			// Accept
-			const config2 = {
-				scenarios: {
-					'A  name': { url: '/', viewport: { width: 1, height: 1 } }
-				}
-			};
-
-			assert.rejects(
-				conductor.record( config2, tmpDir, 'label' ),
-				/reached mock/,
-				'minimal config with keys for scenarios'
-			);
-		} );
-
-		QUnit.test( 'invalid', ( assert ) => {
-			// Reject
-			const config = {
-				scenarios: [
-					{ viewport: { width: 1, height: 1 } }
-				]
-			};
-			assert.rejects( conductor.record( config, tmpDir, 'label' ),
-				/Validation/,
-				'missing url'
-			);
-
-			const config2 = {
-				scenarios: [
-					{ url: '/', viewport: { width: 'x' } }
-				]
-			};
-			assert.rejects( conductor.record( config2, tmpDir, 'label' ),
-				/Validation/,
-				'bad viewport'
-			);
-		} );
 	} );
 
 	QUnit.test( 'record() - clean state per run', ( assert ) => {
