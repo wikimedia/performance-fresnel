@@ -58,7 +58,7 @@ async function record( config, outputDir, label, progress = () => {} ) {
 	// The record will contain meta-data about every scenario,
 	// and the data collected by probes on each of the runs.
 	const record = {
-		scenarios: []
+		scenarios: {}
 	};
 
 	// Step 2: Start the browser
@@ -191,9 +191,9 @@ async function record( config, outputDir, label, progress = () => {} ) {
 		}
 	}
 
-	for ( const scenario of record.scenarios ) {
-		addCombinedData( scenario );
-		addAnalysedData( scenario );
+	for ( const key in record.scenarios ) {
+		addCombinedData( record.scenarios[ key ] );
+		addAnalysedData( record.scenarios[ key ] );
 	}
 
 	// Step 5: Lastly, write the record to disk.

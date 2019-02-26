@@ -97,7 +97,7 @@ function like( value, shape, name ) {
 /**
  * Whether a given value is a valid Fresnel scenario.
  *
- * @param {mixed|Probe} value
+ * @param {Object} value
  * @throw {Error} If invalid
  */
 function scenario( value ) {
@@ -116,18 +116,18 @@ function scenario( value ) {
 /**
  * Whether a given value is a valid Fresnel configuration object.
  *
- * @param {mixed|Object} value
+ * @param {Object} value
  * @throw {Error} If invalid
  */
 function config( value ) {
 	like( value, {
 		warmup: 'boolean',
 		runs: 'number',
-		scenarios: 'array'
+		scenarios: [ 'object', 'array' ]
 	}, 'config' );
-	value.scenarios.forEach( ( scenarioOpts ) => {
-		scenario( scenarioOpts );
-	} );
+	for ( const key in value.scenarios ) {
+		scenario( value.scenarios[ key ] );
+	}
 }
 
 module.exports = { like, scenario, config };

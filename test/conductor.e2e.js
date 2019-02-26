@@ -45,6 +45,19 @@ QUnit.module( 'e2e/conductor', ( hooks ) => {
 				/reached mock/,
 				'minimal config'
 			);
+
+			// Accept
+			const config2 = {
+				scenarios: {
+					'A  name': { url: '/', viewport: { width: 1, height: 1 } }
+				}
+			};
+
+			assert.rejects(
+				conductor.record( config2, tmpDir, 'label' ),
+				/reached mock/,
+				'minimal config with keys for scenarios'
+			);
 		} );
 
 		QUnit.test( 'invalid', ( assert ) => {

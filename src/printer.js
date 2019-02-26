@@ -126,7 +126,7 @@ function format( num, unit, options = {} ) {
 function progress( writeln, event, message ) {
 	switch ( event ) {
 		case 'conductor/record-start':
-			writeln( `Recording ${message.scenarios.length} scenario(s) with ${message.runs} run(s) each...` );
+			writeln( `Recording ${Object.keys( message.scenarios ).length} scenario(s) with ${message.runs} run(s) each...` );
 			break;
 		default:
 			writeln( `[${event}]`, message || '' );

@@ -1,6 +1,6 @@
 {
-  "scenarios": [
-    {
+  "scenarios": {
+    "0": {
       "options": {
         "url": "{TEST_FIXTUREURL}/basic/one.html",
         "viewport": {
@@ -177,5 +177,5 @@
         }
       }
     }
-  ]
+  }
 }
