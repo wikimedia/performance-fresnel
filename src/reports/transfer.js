@@ -47,9 +47,10 @@ function getSizesFromEntries( category, entries ) {
 			case 'img':
 				sizes.img += entry.transferSize;
 				break;
+			// Resource requested by CSS.
+			// e.g. an imported stylesheet, background image, or font file.
 			case 'css':
-				// Resource requested by CSS.
-				// e.g. an imported stylesheet, background image, or font file.
+				/* istanbul ignore else */
 				if ( rImg.test( path ) ) {
 					sizes.img += entry.transferSize;
 				} else if ( rFont.test( path ) ) {

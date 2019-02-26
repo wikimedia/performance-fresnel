@@ -260,7 +260,11 @@ async function compare( outputDir, labelA, labelB ) {
 					const metric = report.metrics[ metricKey ];
 					const a = scenarioA.analysed[ reportName ][ metricKey ];
 					const b = scenarioB.analysed[ reportName ][ metricKey ];
+					/* istanbul ignore if */
 					if ( !a || !b ) {
+						// If the evaluated commit changes the Fresnel configuration,
+						// so that one of the scenarios or metrics exists in only one
+						// of "before" or "after", then we can't compare it.
 						continue;
 					}
 					const diff = metric.compare( a, b );
