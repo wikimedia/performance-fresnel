@@ -46,7 +46,8 @@
 		],
 		"reporter": [
 			"text",
-			"html"
+			"html",
+			"clover"
 		],
 		"report-dir": "coverage",
 		"check-coverage": true,
