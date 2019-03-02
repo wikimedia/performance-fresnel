@@ -1,24 +1,31 @@
 
+0.2.1 / 2019-03-02
+==================
+
+### Added
+
+* conductor: Support plain objects in `config.scenarios`.
+
 0.2.0 / 2019-02-22
 ==================
 
 ### Added
 
-* printer: Add formatting of bytes. (Timo Tijhof)
-* cli: Validate params before reading config. (Timo Tijhof)
+* printer: Add formatting of bytes.
+* cli: Validate params before reading config.
 
 ### Fixed
 
-* printer: Fix formatting of near-zero negative values. (Timo Tijhof)
+* printer: Fix formatting of near-zero negative values.
 
 0.1.1 / 2019-01-15
 ==================
 
 ### Fixed
 
-* build: Include `bin/` in the npm package. (Timo Tijhof)
+* build: Include `bin/` in the npm package.
 
 0.1.0 / 2019-01-14
 ==================
 
-* initial release.
+* initial release. (Timo Tijhof)
