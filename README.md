@@ -42,6 +42,10 @@ A scenario consists of the following options:
   - [`screenshot`](./API.md#module_probes/screenshot)
   - [`trace`](./API.md#module_probes/trace)
 
+Examples of Fresnel config files:
+* [Fresnel test fixture](./test/fixtures/basic/.fresnel.yml)
+* [MediaWiki](https://github.com/wikimedia/mediawiki/blob/master/.fresnel.yml)
+
 
 ## Usage
 
