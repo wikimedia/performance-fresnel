@@ -71,7 +71,7 @@
           "stdev": 0
         },
         "diff": -600,
-        "judgement": null
+        "judgement": true
       },
       "TTFCP": {
         "caption": "Total to first contentful paint",
@@ -85,7 +85,7 @@
           "stdev": 0
         },
         "diff": -500,
-        "judgement": null
+        "judgement": true
       }
     }
   }

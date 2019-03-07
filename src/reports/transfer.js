@@ -94,7 +94,7 @@ module.exports = {
 				series.transfer.entries.map( getSizesFromEntries.bind( null, 'total' ) )
 			),
 			compare: ( a, b ) => compute.compareStdev( a, b ),
-			threshold: 10
+			threshold: 1
 		},
 		html: {
 			caption: 'Transfer size of HTML document',

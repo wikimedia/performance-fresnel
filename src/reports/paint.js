@@ -19,14 +19,16 @@ module.exports = {
 			caption: 'Time to first paint',
 			unit: 'ms',
 			analyse: ( series ) => compute.stats( series.paint[ 'first-paint' ] ),
-			compare: ( a, b ) => compute.compareStdev( a, b )
+			compare: ( a, b ) => compute.compareStdev( a, b ),
+			threshold: 1
 		},
 
 		TTFCP: {
 			caption: 'Total to first contentful paint',
 			unit: 'ms',
 			analyse: ( series ) => compute.stats( series.paint[ 'first-contentful-paint' ] ),
-			compare: ( a, b ) => compute.compareStdev( a, b )
+			compare: ( a, b ) => compute.compareStdev( a, b ),
+			threshold: 1
 		}
 	}
 };
