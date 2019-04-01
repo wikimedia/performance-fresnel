@@ -1,3 +1,9 @@
+0.2.2 / 2019-04-01
+
+### Fixed
+* New test release with updated dependencies throught npm audit fix (updating js-yaml). 
+
+==================
 
 0.2.1 / 2019-03-02
 ==================
