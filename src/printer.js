@@ -154,27 +154,21 @@ function printTable( writeln, rows ) {
 		return '-'.repeat( colWidth );
 	} ).join( BORDER_SEP ) + BORDER_SEP;
 
-	// Border at the top
-	writeln( borderLine );
-
 	rows.forEach( ( row, rowIndex ) => {
-		const line = ROW_START + row.map( ( value, colIndex ) => {
-			if ( colIndex === 0 ) {
-				return padLast( value, colWidths[ colIndex ] );
-			}
-			return padFirst( value, colWidths[ colIndex ] );
-		} ).join( CELL_SEP ) + CELL_SEP;
-
-		writeln( line );
-
-		if ( rowIndex === 0 ) {
-			// Border between head and body
+		if ( row[0] === 'BORDER_LINE' ) {
+			// Border where requested
 			writeln( borderLine );
+		} else {
+			const line = ROW_START + row.map( ( value, colIndex ) => {
+				if ( colIndex === 0 ) {
+					return padLast( value, colWidths[ colIndex ] );
+				}
+				return padFirst( value, colWidths[ colIndex ] );
+			} ).join( CELL_SEP ) + CELL_SEP;
+
+			writeln( line );
 		}
 	} );
-
-	// Border at the end
-	writeln( borderLine );
 }
 
 /**
@@ -182,27 +176,29 @@ function printTable( writeln, rows ) {
 * @param {Object} compared As produced by {@link module:conductor~compare conductor.compare}
 */
 function comparison( writeln, compared ) {
-	const head = [
+	const headRow = [
 		'Metric',
 		'Before',
 		'After',
 		'Diff',
 		''
 	];
+	const borderRow = [ 'BORDER_LINE', '', '', '', '' ];
 
 	for ( const scenario in compared ) {
 		const reports = compared[ scenario ];
+		writeln( '' );
+		writeln( '' );
+		writeln( `### scenario ${scenario}` );
+		const rows = [ borderRow, headRow, borderRow ];
 		for ( const report in reports ) {
-			writeln( '' );
-			writeln( `### scenario ${scenario}: ${report}` );
-			writeln( '' );
 			const metrics = reports[ report ];
-			const rows = [ head ];
+			rows.push( [ `${report}:`, '', '', '', '' ] );
 			for ( const metricKey in metrics ) {
 				const metric = metrics[ metricKey ];
 				const row = [
 					// Metric
-					`${metric.caption} (${metricKey})`,
+					`  ${metric.caption} (${metricKey})`,
 					// Before
 					format( metric.a.mean, metric.unit ) +
 						` (± ${format( metric.a.stdev, metric.unit )})`,
@@ -225,8 +221,9 @@ function comparison( writeln, compared ) {
 				}
 				rows.push( row );
 			}
-			printTable( writeln, rows );
 		}
+		rows.push( borderRow );
+		printTable( writeln, rows );
 	}
 }
 
