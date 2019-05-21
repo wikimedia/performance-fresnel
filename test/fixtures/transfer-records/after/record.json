@@ -11,27 +11,45 @@
         "transfer": {
           "pageWeight": {
             "mean": 140715,
-            "stdev": 4.89
+            "stdev": 4.89,
+            "values": [
+              140715
+            ]
           },
           "html": {
             "mean": 5441,
-            "stdev": 0.47
+            "stdev": 0.47,
+            "values": [
+              5441
+            ]
           },
           "css": {
             "mean": 9370,
-            "stdev": 2.82
+            "stdev": 2.82,
+            "values": [
+              9370
+            ]
           },
           "js": {
             "mean": 97521,
-            "stdev": 5.43
+            "stdev": 5.43,
+            "values": [
+              97521
+            ]
           },
           "img": {
             "mean": 28382,
-            "stdev": 0
+            "stdev": 0,
+            "values": [
+              28382
+            ]
           },
           "other": {
             "mean": 0,
-            "stdev": 0
+            "stdev": 0,
+            "values": [
+              0
+            ]
           }
         }
       }

@@ -32,8 +32,8 @@ function subtract( seqA, seqB ) {
  *     // mean: 4.0, stdev: 0.82
  *
  * @param {number[]} values
- * @return {Object} An object holding the mean average (`mean`)
- *  and standard deviation (`stdev`).
+ * @return {Object} An object holding the mean average (`mean`),
+ *  standard deviation (`stdev`) and values (`values`).
  */
 function stats( values ) {
 	// The mean average:
@@ -59,7 +59,7 @@ function stats( values ) {
 	}
 	const stdev = Math.sqrt( sqDiffSum / values.length );
 
-	return { mean, stdev };
+	return { mean, stdev, values };
 }
 
 /**
@@ -104,4 +104,137 @@ function compareStdev( before, after ) {
 	return 0;
 }
 
-module.exports = { subtract, stats, compareStdev };
+/**
+ * Perform an approximate Mann-Whitney U test on two sets of values to test
+ * whether the values in the second set are significantly higher. The test
+ * is a non-parametric test that compares the ranks of the values without
+ * assuming they are distributed in a particular way.
+ *
+ * For details of the test and calculations see:
+ * https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test
+ *
+ * This implementation is paraphrased from:
+ * https://github.com/JuliaStats/HypothesisTests.jl/blob/b28a4587fe441d1da0479c0791e5f9fd2120cb6b/src/mann_whitney.jl
+ *
+ * Assumptions made by this implementation:
+ * - each set contains the same number of values
+ * - we are interested in whether values in the second set are higher
+ * - the sample is large enough to use the approximate test
+ *
+ * @param {Object} before
+ * @param {Object} after
+ * @return {number} The p-value representing the likelihood of getting the
+ * observed U score (or more extreme) under the null hypothesis, that a
+ * randomly-chosen value from either set is equally likely to be higher or
+ * lower than a randomly-chosen value from the other set.
+ */
+function mannWhitney( before, after ) {
+	const beforeLen = before.values.length;
+	const afterLen = after.values.length;
+	const values = before.values.concat( after.values );
+
+	const [ order, adjustment ] = ranks( values );
+	const sumBeforeRanks = order
+		.slice( 0, beforeLen )
+		.reduce( ( a, b ) => {
+			return a + b;
+		} );
+
+	const U = sumBeforeRanks - ( beforeLen * ( beforeLen + 1 ) / 2 );
+	// U statistic mean
+	const mu = U - ( beforeLen * afterLen / 2 );
+	// U statistic standard deviation
+	const sigma = Math.sqrt(
+		(
+			beforeLen * afterLen * (
+				beforeLen + afterLen + 1 - adjustment / (
+					( beforeLen + afterLen ) * ( beforeLen + afterLen - 1 )
+				)
+			)
+		) / 12
+	)
+
+	if ( mu === 0 && sigma === 0 ) {
+		// Values all equal
+		return 1;
+	} else {
+		const z = ( mu + 0.5 ) / sigma;
+		// Approximation to Normal distribution CDF from
+		// http://web2.uwindsor.ca/math/hlynka/zogheibhlynka.pdf
+		return 1 / ( 1 + Math.pow(
+			Math.E, ( 0.0054 - 1.6101 * z - 0.0674 * Math.pow( z, 3 ) )
+		) );
+	}
+}
+
+/**
+ * Find the rank for each value, giving any tied values the mean of the ranks
+ * that they cover. The ranks are used to calculate the U score. Also find
+ * the adjustment constant, used for calculating the standard deviation of U.
+ *
+ * Example:
+ *
+ *     values: [ 4, 9, 8, 7, 3, 6, 6 ]
+ *     sorted: [ 3, 4, 6, 6, 7, 8, 9 ]
+ *     place:  [ 1, 6, 5, 4, 0, 2, 3 ]
+ *     ranks:  [ 2, 7, 6, 5, 1, 3.5, 3.5 ]
+ *
+ * @param {number[]} values
+ * @return {Array} ranks of the values, adjustment constant
+ */
+function ranks( values ) {
+	// Sort the values
+	const sorted = values.slice().sort( ( a, b ) => {
+		return a - b;
+	} );
+
+	// Find the index of each value in the sorted array
+	const startSearch = {};
+	const place = sorted.map( ( v, i ) => {
+		const ret = values.indexOf( v, startSearch[ v ] );
+		startSearch[ v ] = ret + 1;
+		return ret;
+	} );
+
+	// Find the rank of each value
+	// The rank is usually the index + 1, except...
+	// For tied values, the rank is the mean of their indices + 1
+	let adjustment = 0;
+	let i = 0;
+	const order = [];
+	while ( i < values.length ) {
+		let j = i;
+
+		while (
+			j + 1 <= values.length &&
+			values[ place[ i ] ] === values[ place[ j + 1 ] ]
+		) {
+			j += 1;
+		}
+
+		if ( j > i ) {
+			// There are tied values, so find the mean of their ranks
+			const numTies = j - i + 1;
+			let meanRank = 0;
+			for ( let k = i; k < j + 1; k++ ) {
+				meanRank += k;
+			}
+			meanRank /= numTies;
+			for ( let k = i; k < j + 1; k++ ) {
+				order[ place[ k ] ] = meanRank + 1;
+			}
+
+			// Adjustment constant is t^3 - t, where t is the number of ties
+			adjustment += Math.pow( numTies, 3 ) - numTies;
+		} else {
+			// This value is unique
+			order[ place[ i ] ] = i + 1;
+		}
+
+		i = j + 1;
+	}
+
+	return [ order, adjustment ];
+}
+
+module.exports = { subtract, stats, compareStdev, mannWhitney };

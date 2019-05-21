@@ -150,29 +150,47 @@
         "navtiming": {
           "responseStart": {
             "mean": 2400.01,
-            "stdev": 0
+            "stdev": 0,
+            "values": [
+              2400.01
+            ]
           },
           "loadEventEnd": {
             "mean": 6000.03,
-            "stdev": 0
+            "stdev": 0,
+            "values": [
+              6000.03
+            ]
           },
           "processing": {
             "mean": 3500,
-            "stdev": 0
+            "stdev": 0,
+            "values": [
+              3500
+            ]
           },
           "onLoad": {
             "mean": 0.009999999999308784,
-            "stdev": 0
+            "stdev": 0,
+            "values": [
+              0.009999999999308784
+            ]
           }
         },
         "paint": {
           "TTFP": {
             "mean": 6500.02,
-            "stdev": 0
+            "stdev": 0,
+            "values": [
+              6500.02
+            ]
           },
           "TTFCP": {
             "mean": 6600.02,
-            "stdev": 0
+            "stdev": 0,
+            "values": [
+              6600.02
+            ]
           }
         }
       }

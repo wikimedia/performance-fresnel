@@ -43,12 +43,12 @@ QUnit.module( 'e2e/probes', ( hooks ) => {
 			assert.propEqual(
 				record.scenarios[ 0 ].analysed.transfer,
 				{
-					pageWeight: { mean: 116208, stdev: 0 },
-					html: { mean: 5900, stdev: 0 },
-					css: { mean: 315, stdev: 0 },
-					js: { mean: 35797, stdev: 0 },
-					img: { mean: 53286, stdev: 0 },
-					other: { mean: 20910, stdev: 0 }
+					pageWeight: { mean: 116208, stdev: 0, values: [ 116208 ] },
+					html: { mean: 5900, stdev: 0, values: [ 5900 ] },
+					css: { mean: 315, stdev: 0, values: [ 315 ] },
+					js: { mean: 35797, stdev: 0, values: [ 35797 ] },
+					img: { mean: 53286, stdev: 0, values: [ 53286 ] },
+					other: { mean: 20910, stdev: 0, values: [ 20910 ] }
 				},
 				'analysed.transfer'
 			);
