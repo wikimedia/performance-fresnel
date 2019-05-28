@@ -1,9 +1,17 @@
+0.3.0 / 2019-05-28
+==================
+
+### Added
+
+* compute: Add Mann-Whitney U test to compute module. (Thalia)
+* printer: Merge scenarios into one table each. (James D. Forrester)
+
 0.2.2 / 2019-04-01
+==================
 
 ### Fixed
-* New test release with updated dependencies throught npm audit fix (updating js-yaml). 
 
-==================
+* New test release with updated dependencies throught npm audit fix (updating js-yaml).
 
 0.2.1 / 2019-03-02
 ==================

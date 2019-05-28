@@ -1,6 +1,6 @@
 {
 	"name": "fresnel",
-	"version": "0.2.2",
+	"version": "0.3.0",
 	"lockfileVersion": 1,
 	"requires": true,
 	"dependencies": {
@@ -578,7 +578,7 @@
 			"dev": true,
 			"requires": {
 				"eslint": "^5.9.0",
-				"eslint-plugin-jquery": "github:wikimedia/eslint-plugin-jquery#5fec3d392af8ac564c2266dbd95a1e107ecf56c3",
+				"eslint-plugin-jquery": "github:wikimedia/eslint-plugin-jquery#v1.3.2-wmf.5",
 				"eslint-plugin-qunit": "^4.0.0"
 			}
 		},
