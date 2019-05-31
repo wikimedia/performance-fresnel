@@ -88,7 +88,7 @@ module.exports = {
 
 	metrics: {
 		pageWeight: {
-			caption: 'Total size of all transfers during page load',
+			caption: 'Total size of transfers during page load',
 			unit: 'B',
 			analyse: ( series ) => compute.stats(
 				series.transfer.entries.map( getSizesFromEntries.bind( null, 'total' ) )
