@@ -20,7 +20,7 @@ module.exports = {
 			unit: 'ms',
 			analyse: ( series ) => compute.stats( series.paint[ 'first-paint' ] ),
 			compare: ( a, b ) => compute.compareStdev( a, b ),
-			threshold: 1
+			threshold: 10
 		},
 
 		TTFCP: {
@@ -28,7 +28,7 @@ module.exports = {
 			unit: 'ms',
 			analyse: ( series ) => compute.stats( series.paint[ 'first-contentful-paint' ] ),
 			compare: ( a, b ) => compute.compareStdev( a, b ),
-			threshold: 1
+			threshold: 10
 		}
 	}
 };

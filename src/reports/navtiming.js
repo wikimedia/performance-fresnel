@@ -26,7 +26,7 @@ module.exports = {
 			unit: 'ms',
 			analyse: ( series ) => compute.stats( series.navtiming.loadEventEnd ),
 			compare: ( a, b ) => compute.compareStdev( a, b ),
-			threshold: 1
+			threshold: 100
 		},
 
 		processing: {
@@ -37,7 +37,7 @@ module.exports = {
 				series.navtiming.responseEnd
 			) ),
 			compare: ( a, b ) => compute.compareStdev( a, b ),
-			threshold: 10
+			threshold: 100
 		},
 
 		onLoad: {
@@ -48,7 +48,7 @@ module.exports = {
 				series.navtiming.loadEventStart
 			) ),
 			compare: ( a, b ) => compute.compareStdev( a, b ),
-			threshold: 1
+			threshold: 10
 		}
 	}
 };
