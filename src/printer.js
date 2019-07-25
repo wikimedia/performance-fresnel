@@ -8,6 +8,8 @@
  * @module printer
  */
 
+/* eslint-disable prefer-template */
+
 const color = {
 	bold: '\u001b[1m',
 	red: '\u001b[31m',

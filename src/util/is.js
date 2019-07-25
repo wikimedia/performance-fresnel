@@ -12,7 +12,7 @@ const objToString = Object.prototype.toString;
 class Validation extends Error {
 	constructor( message, inputName ) {
 		super( message );
-		this.name = 'Validation' + ( inputName ? ` of ${inputName}` : '' );
+		this.name = `Validation${(inputName ? ` of ${inputName}` : '')}`;
 	}
 }
 

@@ -69,7 +69,7 @@ async function run( options, probes, writer, browser, progress ) {
 		if ( probe.before ) {
 			await probe.before(
 				page,
-				writer.prefix( probe.name + '--' )
+				writer.prefix( `${probe.name}--` )
 			);
 		}
 	}
@@ -83,7 +83,7 @@ async function run( options, probes, writer, browser, progress ) {
 		if ( probe.after ) {
 			await probe.after(
 				page,
-				writer.prefix( probe.name + '--' ),
+				writer.prefix( `${probe.name}--` ),
 				( data ) => { Object.assign( datas[ probe.name ], data ); }
 			);
 		}

@@ -24,7 +24,7 @@ QUnit.module( 'e2e/cli', ( hooks ) => {
 		orgError = console.error;
 		out = '';
 		console.log = console.error = ( str ) => {
-			out += str + '\n';
+			out += `${str}\n`;
 		};
 
 		tmpDir = mktmpdir( 'fresnel_test' );
