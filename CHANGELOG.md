@@ -1,3 +1,16 @@
+
+0.4.0 / 2019-07-25
+==================
+
+### Changed
+
+* navtiming,paint: Raise thresholds to +100ms and +10ms. (Timo Tijhof)
+* transfer: Shorten 'pageWeight' metric description. (Timo Tijhof)
+
+### Fixed
+
+* build: Bump dev dependencies that have npm-audit warnings.
+
 0.3.0 / 2019-05-28
 ==================
 
