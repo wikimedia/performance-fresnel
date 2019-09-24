@@ -69,7 +69,7 @@ subdirectories created within it.</p>
 <dt><a href="#Probe">Probe</a> : <code>Object</code></dt>
 <dd><p>A probe is a set of callbacks to run client-side when <a href="#module_conductor..record">recording</a>
 scenarios.</p>
-<h4 id="probe-before">probe.before</h4>
+<h4 id="probebefore">probe.before</h4>
 <p>The <code>before</code> callback runs before the web page starts loading. Use this to make changes to the
 browser tab (via <a href="https://pptr.dev/#?product=Puppeteer&amp;version=v1.11.0&amp;show=api-class-page">puppeteer/Page</a>, or higher-level objects accessed via that,
 such as <a href="https://pptr.dev/#?product=Puppeteer&amp;version=v1.11.0&amp;show=api-class-browser">puppeteer/Browser</a>). Examples of things one might do here:
@@ -81,7 +81,7 @@ simulate a certain GPS position, etc.</p>
 <li><a href="#Writer">Writer</a> <code>writer</code>: Use this to obtain file paths to write
 artefacts to.</li>
 </ul>
-<h4 id="probe-after">probe.after</h4>
+<h4 id="probeafter">probe.after</h4>
 <p>The <code>after</code> callback runs once the web page has finished loading. Use this to capture your
 data. Typically by using <code>page.evaluate()</code> to send JavaScript code to the browser which will be
 executed client-side in the context of the page. From there, you can access the DOM, other
@@ -109,11 +109,10 @@ module.exports = {
             compare: ( a, b ) =&gt; compute.compareStdev( a, b )
         }
     }
-};
-</code></pre><h4 id="report-probes">report.probes</h4>
+};</code></pre><h4 id="reportprobes">report.probes</h4>
 <p>Specify one or probes that provide the data needed for this report. The recording phase
 uses this to determine which probes to run.</p>
-<h4 id="report-metrics">report.metrics</h4>
+<h4 id="reportmetrics">report.metrics</h4>
 <p>An object with one or more metric specifications. The key is the internal
 name for the metric, and the value is an object with the following properties:</p>
 <ul>
@@ -127,7 +126,7 @@ two recordings.</li>
 <li>number <code>threshold</code> (optional) - If the compared difference is more than this
 value, a warning will be shown.</li>
 </ul>
-<h3 id="metric-analyse-callback">metric.analyse callback</h3>
+<h3 id="metricanalyse-callback">metric.analyse callback</h3>
 <p>During each run of the same scenario, a probe can capture data into an object.
 Here, the values from those objects have combined from each run into an array.</p>
 <p>The analyser for a single metric, has access to all data from probes, and
@@ -143,7 +142,7 @@ containing <code>[ 10, 12 ]</code>.</p>
 from multiple runs.</li>
 </ul>
 <p><strong>Returns</strong>: <code>Object</code> - An stats object with a <code>mean</code> and <code>stdev</code> property.</p>
-<h3 id="metric-compare-callback">metric.compare callback</h3>
+<h3 id="metriccompare-callback">metric.compare callback</h3>
 <p><strong>Parameters</strong>:</p>
 <ul>
 <li>Object <code>a</code>: A stats object from the analyse callback.</li>
@@ -175,6 +174,8 @@ Functions to help with numerical computations.
     * [~subtract(seqA, seqB)](#module_compute..subtract) ⇒ <code>Array.&lt;number&gt;</code>
     * [~stats(values)](#module_compute..stats) ⇒ <code>Object</code>
     * [~compareStdev(before, after)](#module_compute..compareStdev) ⇒ <code>number</code>
+    * [~mannWhitney(before, after)](#module_compute..mannWhitney) ⇒ <code>number</code>
+    * [~ranks(values)](#module_compute..ranks) ⇒ <code>Array</code>
 
 <a name="module_compute..subtract"></a>
 
@@ -206,8 +207,8 @@ Example:
     // mean: 4.0, stdev: 0.82
 
 **Kind**: inner method of [<code>compute</code>](#module_compute)  
-**Returns**: <code>Object</code> - An object holding the mean average (`mean`)
- and standard deviation (`stdev`).  
+**Returns**: <code>Object</code> - An object holding the mean average (`mean`),
+ standard deviation (`stdev`) and values (`values`).  
 
 | Param | Type |
 | --- | --- |
@@ -241,6 +242,57 @@ your metric, then a negative difference represents an improvement.
 | --- | --- |
 | before | <code>Object</code> | 
 | after | <code>Object</code> | 
+
+<a name="module_compute..mannWhitney"></a>
+
+### compute~mannWhitney(before, after) ⇒ <code>number</code>
+Perform an approximate Mann-Whitney U test on two sets of values to test
+whether the values in the second set are significantly higher. The test
+is a non-parametric test that compares the ranks of the values without
+assuming they are distributed in a particular way.
+
+For details of the test and calculations see:
+https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test
+
+This implementation is paraphrased from:
+https://github.com/JuliaStats/HypothesisTests.jl/blob/b28a4587fe441d1da0479c0791e5f9fd2120cb6b/src/mann_whitney.jl
+
+Assumptions made by this implementation:
+- each set contains the same number of values
+- we are interested in whether values in the second set are higher
+- the sample is large enough to use the approximate test
+
+**Kind**: inner method of [<code>compute</code>](#module_compute)  
+**Returns**: <code>number</code> - The p-value representing the likelihood of getting the
+observed U score (or more extreme) under the null hypothesis, that a
+randomly-chosen value from either set is equally likely to be higher or
+lower than a randomly-chosen value from the other set.  
+
+| Param | Type |
+| --- | --- |
+| before | <code>Object</code> | 
+| after | <code>Object</code> | 
+
+<a name="module_compute..ranks"></a>
+
+### compute~ranks(values) ⇒ <code>Array</code>
+Find the rank for each value, giving any tied values the mean of the ranks
+that they cover. The ranks are used to calculate the U score. Also find
+the adjustment constant, used for calculating the standard deviation of U.
+
+Example:
+
+    values: [ 4, 9, 8, 7, 3, 6, 6 ]
+    sorted: [ 3, 4, 6, 6, 7, 8, 9 ]
+    place:  [ 1, 6, 5, 4, 0, 2, 3 ]
+    ranks:  [ 2, 7, 6, 5, 1, 3.5, 3.5 ]
+
+**Kind**: inner method of [<code>compute</code>](#module_compute)  
+**Returns**: <code>Array</code> - ranks of the values, adjustment constant  
+
+| Param | Type |
+| --- | --- |
+| values | <code>Array.&lt;number&gt;</code> | 
 
 <a name="module_conductor"></a>
 
@@ -451,6 +503,10 @@ subdirectories created within it.
 ### new Writer(dir, prefix)
 The specified directory will be created if needed.
 Any parent directories must exist beforehand.
+
+**Throws**:
+
+- <code>Error</code> If directory can't be created.
 
 
 | Param | Type | Description |
