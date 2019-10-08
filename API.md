@@ -106,7 +106,7 @@ module.exports = {
             caption: &#39;An example metric.&#39;
             unit: &#39;ms&#39;,
             analyse: ( series ) =&gt; compute.stats( series.x.mykey ),
-            compare: ( a, b ) =&gt; compute.compareStdev( a, b )
+            compare: ( a, b ) =&gt; compute.diffStdev( a, b )
         }
     }
 };</code></pre><h4 id="reportprobes">report.probes</h4>
@@ -173,7 +173,7 @@ Functions to help with numerical computations.
 * [compute](#module_compute)
     * [~subtract(seqA, seqB)](#module_compute..subtract) ⇒ <code>Array.&lt;number&gt;</code>
     * [~stats(values)](#module_compute..stats) ⇒ <code>Object</code>
-    * [~compareStdev(before, after)](#module_compute..compareStdev) ⇒ <code>number</code>
+    * [~diffStdev(before, after)](#module_compute..diffStdev) ⇒ <code>number</code>
     * [~mannWhitney(before, after)](#module_compute..mannWhitney) ⇒ <code>number</code>
     * [~ranks(values)](#module_compute..ranks) ⇒ <code>Array</code>
 
@@ -214,16 +214,16 @@ Example:
 | --- | --- |
 | values | <code>Array.&lt;number&gt;</code> | 
 
-<a name="module_compute..compareStdev"></a>
+<a name="module_compute..diffStdev"></a>
 
-### compute~compareStdev(before, after) ⇒ <code>number</code>
+### compute~diffStdev(before, after) ⇒ <code>number</code>
 Compare two objects from `stats()`.
 
 Example:
 
     const a = stats( [ 3, 4, 5 ] );       // mean: 4.0, stdev: 0.82
     const b = stats( [ 1.0, 1.5, 2.0 ] ); // mean: 1.5, stdev: 0.41
-    compareStdev( a, b );
+    diffStdev( a, b );
     // -1.27
 
 This is computed by creating a range of 1 stdev aroud each mean,
@@ -234,9 +234,9 @@ and the range for B is `1.09 ... 1.91`. The ranges don't overlap and
 the distance between 3.18 and 1.91 is -1.27.
 
 **Kind**: inner method of [<code>compute</code>](#module_compute)  
-**Returns**: <code>number</code> - The difference between the before and after means, after
-compensating for 1 standard deviation. If lower numbers are better for
-your metric, then a negative difference represents an improvement.  
+**Returns**: <code>number</code> - The difference between the before and after mean averages,
+after having compensated for 1 standard deviation. If lower numbers are better
+for your metric, then a negative difference represents an improvement.  
 
 | Param | Type |
 | --- | --- |
@@ -255,7 +255,7 @@ For details of the test and calculations see:
 https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test
 
 This implementation is paraphrased from:
-https://github.com/JuliaStats/HypothesisTests.jl/blob/b28a4587fe441d1da0479c0791e5f9fd2120cb6b/src/mann_whitney.jl
+https://github.com/JuliaStats/HypothesisTests.jl/blob/b28a4587fe/src/mann_whitney.jl
 
 Assumptions made by this implementation:
 - each set contains the same number of values
@@ -607,7 +607,7 @@ and [comparing](#module_conductor..compare) scenario data.
                 caption: 'An example metric.'
                 unit: 'ms',
                 analyse: ( series ) => compute.stats( series.x.mykey ),
-                compare: ( a, b ) => compute.compareStdev( a, b )
+                compare: ( a, b ) => compute.diffStdev( a, b )
             }
         }
     };

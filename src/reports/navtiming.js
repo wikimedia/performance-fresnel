@@ -18,14 +18,14 @@ module.exports = {
 			caption: 'Time to first byte',
 			unit: 'ms',
 			analyse: ( series ) => compute.stats( series.navtiming.responseStart ),
-			compare: ( a, b ) => compute.compareStdev( a, b )
+			compare: ( a, b ) => compute.diffStdev( a, b )
 		},
 
 		loadEventEnd: {
 			caption: 'Total page load time',
 			unit: 'ms',
 			analyse: ( series ) => compute.stats( series.navtiming.loadEventEnd ),
-			compare: ( a, b ) => compute.compareStdev( a, b ),
+			compare: ( a, b ) => compute.diffStdev( a, b ),
 			threshold: 100
 		},
 
@@ -36,7 +36,7 @@ module.exports = {
 				series.navtiming.domComplete,
 				series.navtiming.responseEnd
 			) ),
-			compare: ( a, b ) => compute.compareStdev( a, b ),
+			compare: ( a, b ) => compute.diffStdev( a, b ),
 			threshold: 100
 		},
 
@@ -47,7 +47,7 @@ module.exports = {
 				series.navtiming.loadEventEnd,
 				series.navtiming.loadEventStart
 			) ),
-			compare: ( a, b ) => compute.compareStdev( a, b ),
+			compare: ( a, b ) => compute.diffStdev( a, b ),
 			threshold: 10
 		}
 	}

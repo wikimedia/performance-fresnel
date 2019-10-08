@@ -19,29 +19,29 @@ QUnit.module( 'compute', () => {
 		);
 	} );
 
-	QUnit.test( 'compareStdev() - decrease', ( assert ) => {
+	QUnit.test( 'diffStdev() - decrease', ( assert ) => {
 		const a = compute.stats( [ 3, 4, 5 ] );
 		const b = compute.stats( [ 1.0, 1.5, 2.0 ] );
 		assert.strictEqual(
-			compute.compareStdev( a, b ).toFixed( 3 ),
+			compute.diffStdev( a, b ).toFixed( 3 ),
 			'-1.275'
 		);
 	} );
 
-	QUnit.test( 'compareStdev() - increase', ( assert ) => {
+	QUnit.test( 'diffStdev() - increase', ( assert ) => {
 		const a = compute.stats( [ 1.0, 1.5, 2.0 ] );
 		const b = compute.stats( [ 3, 4, 5 ] );
 		assert.strictEqual(
-			compute.compareStdev( a, b ).toFixed( 3 ),
+			compute.diffStdev( a, b ).toFixed( 3 ),
 			'1.275'
 		);
 	} );
 
-	QUnit.test( 'compareStdev() - unchanged', ( assert ) => {
+	QUnit.test( 'diffStdev() - unchanged', ( assert ) => {
 		const a = compute.stats( [ 2, 3, 4 ] );
 		const b = compute.stats( [ 3, 4, 5 ] );
 		assert.strictEqual(
-			compute.compareStdev( a, b ),
+			compute.diffStdev( a, b ),
 			0
 		);
 	} );

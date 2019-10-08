@@ -69,7 +69,7 @@ function stats( values ) {
  *
  *     const a = stats( [ 3, 4, 5 ] );       // mean: 4.0, stdev: 0.82
  *     const b = stats( [ 1.0, 1.5, 2.0 ] ); // mean: 1.5, stdev: 0.41
- *     compareStdev( a, b );
+ *     diffStdev( a, b );
  *     // -1.27
  *
  * This is computed by creating a range of 1 stdev aroud each mean,
@@ -81,11 +81,11 @@ function stats( values ) {
  *
  * @param {Object} before
  * @param {Object} after
- * @return {number} The difference between the before and after means, after
- * compensating for 1 standard deviation. If lower numbers are better for
- * your metric, then a negative difference represents an improvement.
+ * @return {number} The difference between the before and after mean averages,
+ * after having compensated for 1 standard deviation. If lower numbers are better
+ * for your metric, then a negative difference represents an improvement.
  */
-function compareStdev( before, after ) {
+function diffStdev( before, after ) {
 	const beforeStart = before.mean - before.stdev;
 	const beforeEnd = before.mean + before.stdev;
 
@@ -114,7 +114,7 @@ function compareStdev( before, after ) {
  * https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test
  *
  * This implementation is paraphrased from:
- * https://github.com/JuliaStats/HypothesisTests.jl/blob/b28a4587fe441d1da0479c0791e5f9fd2120cb6b/src/mann_whitney.jl
+ * https://github.com/JuliaStats/HypothesisTests.jl/blob/b28a4587fe/src/mann_whitney.jl
  *
  * Assumptions made by this implementation:
  * - each set contains the same number of values
@@ -237,4 +237,4 @@ function ranks( values ) {
 	return [ order, adjustment ];
 }
 
-module.exports = { subtract, stats, compareStdev, mannWhitney };
+module.exports = { subtract, stats, diffStdev, mannWhitney };

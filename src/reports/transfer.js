@@ -93,7 +93,7 @@ module.exports = {
 			analyse: ( series ) => compute.stats(
 				series.transfer.entries.map( getSizesFromEntries.bind( null, 'total' ) )
 			),
-			compare: ( a, b ) => compute.compareStdev( a, b ),
+			compare: ( a, b ) => compute.diffStdev( a, b ),
 			threshold: 5
 		},
 		html: {
@@ -102,7 +102,7 @@ module.exports = {
 			analyse: ( series ) => compute.stats(
 				series.transfer.entries.map( getSizesFromEntries.bind( null, 'html' ) )
 			),
-			compare: ( a, b ) => compute.compareStdev( a, b )
+			compare: ( a, b ) => compute.diffStdev( a, b )
 		},
 		css: {
 			caption: 'Transfer size of CSS resources',
@@ -110,7 +110,7 @@ module.exports = {
 			analyse: ( series ) => compute.stats(
 				series.transfer.entries.map( getSizesFromEntries.bind( null, 'css' ) )
 			),
-			compare: ( a, b ) => compute.compareStdev( a, b ),
+			compare: ( a, b ) => compute.diffStdev( a, b ),
 			threshold: 3
 		},
 		js: {
@@ -119,7 +119,7 @@ module.exports = {
 			analyse: ( series ) => compute.stats(
 				series.transfer.entries.map( getSizesFromEntries.bind( null, 'js' ) )
 			),
-			compare: ( a, b ) => compute.compareStdev( a, b )
+			compare: ( a, b ) => compute.diffStdev( a, b )
 		},
 		img: {
 			caption: 'Transfer size of Image document',
@@ -127,7 +127,7 @@ module.exports = {
 			analyse: ( series ) => compute.stats(
 				series.transfer.entries.map( getSizesFromEntries.bind( null, 'img' ) )
 			),
-			compare: ( a, b ) => compute.compareStdev( a, b )
+			compare: ( a, b ) => compute.diffStdev( a, b )
 		},
 		other: {
 			caption: 'Transfer size of other resources',
@@ -135,7 +135,7 @@ module.exports = {
 			analyse: ( series ) => compute.stats(
 				series.transfer.entries.map( getSizesFromEntries.bind( null, 'other' ) )
 			),
-			compare: ( a, b ) => compute.compareStdev( a, b )
+			compare: ( a, b ) => compute.diffStdev( a, b )
 		}
 	}
 };

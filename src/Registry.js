@@ -69,7 +69,7 @@ function isProbe( value ) {
  *                 caption: 'An example metric.'
  *                 unit: 'ms',
  *                 analyse: ( series ) => compute.stats( series.x.mykey ),
- *                 compare: ( a, b ) => compute.compareStdev( a, b )
+ *                 compare: ( a, b ) => compute.diffStdev( a, b )
  *             }
  *         }
  *     };
