@@ -46,66 +46,66 @@ QUnit.module( 'compute', () => {
 		);
 	} );
 
-	QUnit.test( 'mannWhitney() - unchanged', ( assert ) => {
+	QUnit.test( 'diffMannWhitney() - unchanged', ( assert ) => {
 		const a = compute.stats( [ 3, 4, 2, 7, 8, 5, 6 ] );
 		const b = compute.stats( [ 3.5, 2.5, 7.5, 8.5, 4.5, 6.5, 1.5 ] );
 		assert.strictEqual(
-			compute.mannWhitney( a, b ).toFixed( 3 ),
-			'0.550'
+			compute.diffMannWhitney( a, b ).toFixed( 3 ),
+			'0.450'
 		);
 	} );
 
-	QUnit.test( 'mannWhitney() - increase', ( assert ) => {
+	QUnit.test( 'diffMannWhitney() - increase', ( assert ) => {
 		const a = compute.stats( [ 5, 4, 6, 7, 2, 8, 3 ] );
 		const b = compute.stats( [ 9.5, 12.5, 6.5, 10.5, 11.5, 7.5, 8.5 ] );
 		assert.strictEqual(
-			compute.mannWhitney( a, b ).toFixed( 3 ),
-			'0.004'
+			compute.diffMannWhitney( a, b ).toFixed( 3 ),
+			'0.996'
 		);
 	} );
 
-	QUnit.test( 'mannWhitney() - decrease', ( assert ) => {
+	QUnit.test( 'diffMannWhitney() - decrease', ( assert ) => {
 		const a = compute.stats( [ 9.5, 10.5, 8.5, 11.5, 12.5, 6.5, 7.5 ] );
 		const b = compute.stats( [ 3, 7, 8, 6, 4, 5, 2 ] );
 		assert.strictEqual(
-			compute.mannWhitney( a, b ).toFixed( 3 ),
-			'0.998'
+			compute.diffMannWhitney( a, b ).toFixed( 3 ),
+			'0.002'
 		);
 	} );
 
-	QUnit.test( 'mannWhitney() - unchanged, tied ranks', ( assert ) => {
+	QUnit.test( 'diffMannWhitney() - unchanged, tied ranks', ( assert ) => {
 		const a = compute.stats( [ 2, 2, 3, 3, 1, 1, 2 ] );
 		const b = compute.stats( [ 1, 2, 3, 1, 1, 2, 4 ] );
 		assert.strictEqual(
-			compute.mannWhitney( a, b ).toFixed( 3 ),
-			'0.606'
+			compute.diffMannWhitney( a, b ).toFixed( 3 ),
+			'0.394'
 		);
 	} );
 
-	QUnit.test( 'mannWhitney() - increase, tied ranks', ( assert ) => {
+	QUnit.test( 'diffMannWhitney() - increase, tied ranks', ( assert ) => {
 		const a = compute.stats( [ 2, 2, 3, 3, 1, 1, 2 ] );
 		const b = compute.stats( [ 5, 5, 2, 5, 2, 3, 4 ] );
 		assert.strictEqual(
-			compute.mannWhitney( a, b ).toFixed( 3 ),
-			'0.017'
+			compute.diffMannWhitney( a, b ).toFixed( 3 ),
+			'0.983'
 		);
 	} );
 
-	QUnit.test( 'mannWhitney() - decrease, tied ranks', ( assert ) => {
+	QUnit.test( 'diffMannWhitney() - decrease, tied ranks', ( assert ) => {
 		const a = compute.stats( [ 5, 4, 5, 5, 2, 2, 3 ] );
 		const b = compute.stats( [ 1, 2, 2, 2, 3, 1, 3 ] );
 		assert.strictEqual(
-			compute.mannWhitney( a, b ).toFixed( 3 ),
-			'0.988'
+			compute.diffMannWhitney( a, b ).toFixed( 3 ),
+			'0.012'
 		);
 	} );
 
-	QUnit.test( 'mannWhitney() - exactly the same', ( assert ) => {
+	QUnit.test( 'diffMannWhitney() - exactly the same', ( assert ) => {
 		const a = compute.stats( [ 5, 5, 5, 5, 5, 5, 5 ] );
 		const b = compute.stats( [ 5, 5, 5, 5, 5, 5, 5 ] );
 		assert.strictEqual(
-			compute.mannWhitney( a, b ),
-			1
+			compute.diffMannWhitney( a, b ),
+			0
 		);
 	} );
 } );

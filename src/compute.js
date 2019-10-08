@@ -168,6 +168,20 @@ function mannWhitney( before, after ) {
 }
 
 /**
+ * Compare two sets of values using the Mann-Witney U test.
+ *
+ * @see {@link module:compute~mannWhitney #mannWhitney}
+ * @param {Object} before
+ * @param {Object} after
+ * @return {number} Number between 0.0 and 1.0. A higher number may suggest the values have
+ * increased, and a lower number may suggest the values remained the same or got lower.
+ * It is computed as 1 minus the {@link module:compute~mannWhitney Mann-Whitney p-value}.
+ */
+function diffMannWhitney( before, after ) {
+	return 1 - mannWhitney( before, after );
+}
+
+/**
  * Find the rank for each value, giving any tied values the mean of the ranks
  * that they cover. The ranks are used to calculate the U score. Also find
  * the adjustment constant, used for calculating the standard deviation of U.
@@ -237,4 +251,4 @@ function ranks( values ) {
 	return [ order, adjustment ];
 }
 
-module.exports = { subtract, stats, diffStdev, mannWhitney };
+module.exports = { subtract, stats, diffStdev, mannWhitney, diffMannWhitney };

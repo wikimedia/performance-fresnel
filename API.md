@@ -175,6 +175,7 @@ Functions to help with numerical computations.
     * [~stats(values)](#module_compute..stats) ⇒ <code>Object</code>
     * [~diffStdev(before, after)](#module_compute..diffStdev) ⇒ <code>number</code>
     * [~mannWhitney(before, after)](#module_compute..mannWhitney) ⇒ <code>number</code>
+    * [~diffMannWhitney(before, after)](#module_compute..diffMannWhitney) ⇒ <code>number</code>
     * [~ranks(values)](#module_compute..ranks) ⇒ <code>Array</code>
 
 <a name="module_compute..subtract"></a>
@@ -267,6 +268,22 @@ Assumptions made by this implementation:
 observed U score (or more extreme) under the null hypothesis, that a
 randomly-chosen value from either set is equally likely to be higher or
 lower than a randomly-chosen value from the other set.  
+
+| Param | Type |
+| --- | --- |
+| before | <code>Object</code> | 
+| after | <code>Object</code> | 
+
+<a name="module_compute..diffMannWhitney"></a>
+
+### compute~diffMannWhitney(before, after) ⇒ <code>number</code>
+Compare two sets of values using the Mann-Witney U test.
+
+**Kind**: inner method of [<code>compute</code>](#module_compute)  
+**Returns**: <code>number</code> - Number between 0.0 and 1.0. A higher number may suggest the values have
+increased, and a lower number may suggest the values remained the same or got lower.
+It is computed as 1 minus the [Mann-Whitney p-value](#module_compute..mannWhitney).  
+**See**: [#mannWhitney](#module_compute..mannWhitney)  
 
 | Param | Type |
 | --- | --- |
