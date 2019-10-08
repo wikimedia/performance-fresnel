@@ -19,16 +19,18 @@ module.exports = {
 			caption: 'Time to first paint',
 			unit: 'ms',
 			analyse: ( series ) => compute.stats( series.paint[ 'first-paint' ] ),
-			compare: ( a, b ) => compute.diffStdev( a, b ),
-			threshold: 10
+			compare: ( a, b ) => compute.diffMannWhitney( a, b ),
+			threshold: 0.95,
+			compareUnit: 'P'
 		},
 
 		TTFCP: {
 			caption: 'Total to first contentful paint',
 			unit: 'ms',
 			analyse: ( series ) => compute.stats( series.paint[ 'first-contentful-paint' ] ),
-			compare: ( a, b ) => compute.diffStdev( a, b ),
-			threshold: 10
+			compare: ( a, b ) => compute.diffMannWhitney( a, b ),
+			threshold: 0.95,
+			compareUnit: 'P'
 		}
 	}
 };

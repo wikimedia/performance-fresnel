@@ -19,6 +19,7 @@
           ]
         },
         "diff": -100,
+        "compareUnit": "ms",
         "judgement": null
       },
       "loadEventEnd": {
@@ -39,6 +40,7 @@
           ]
         },
         "diff": -1000,
+        "compareUnit": "ms",
         "judgement": true
       },
       "processing": {
@@ -59,6 +61,7 @@
           ]
         },
         "diff": -900,
+        "compareUnit": "ms",
         "judgement": true
       },
       "onLoad": {
@@ -79,6 +82,7 @@
           ]
         },
         "diff": 0,
+        "compareUnit": "ms",
         "judgement": null
       }
     },
@@ -100,8 +104,9 @@
             6500.02
           ]
         },
-        "diff": -600,
-        "judgement": true
+        "diff": 0.022887743403486982,
+        "compareUnit": "P",
+        "judgement": null
       },
       "TTFCP": {
         "caption": "Total to first contentful paint",
@@ -120,8 +125,9 @@
             6600.02
           ]
         },
-        "diff": -500,
-        "judgement": true
+        "diff": 0.022887743403486982,
+        "compareUnit": "P",
+        "judgement": null
       }
     }
   }

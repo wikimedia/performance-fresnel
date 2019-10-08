@@ -118,13 +118,15 @@ name for the metric, and the value is an object with the following properties:</
 <ul>
 <li>string <code>caption</code> - A short description of this metric.</li>
 <li>string <code>unit</code> - The unit for this metric.
-Must be one of: <code>ms</code>, or <code>B</code>.</li>
+Must be one of: <code>ms</code>, <code>B</code>, <code>P</code>.</li>
 <li>Function <code>analyse</code> - A callback to aggregate and analyse data from thes probes,
 as gathered from multiple runs.</li>
 <li>Function <code>compare</code> - A callback to compare the two sets of analysed data, from
 two recordings.</li>
 <li>number <code>threshold</code> (optional) - If the compared difference is more than this
 value, a warning will be shown.</li>
+<li>string <code>compareUnit</code> (optional) - The unit of the comparison/threshold value.
+Defaults to the  <code>unit</code> property.</li>
 </ul>
 <h3 id="metricanalyse-callback">metric.analyse callback</h3>
 <p>During each run of the same scenario, a probe can capture data into an object.
@@ -641,13 +643,15 @@ name for the metric, and the value is an object with the following properties:
 
 - string `caption` - A short description of this metric.
 - string `unit` - The unit for this metric.
-  Must be one of: `ms`, or `B`.
+  Must be one of: `ms`, `B`, `P`.
 - Function `analyse` - A callback to aggregate and analyse data from thes probes,
   as gathered from multiple runs.
 - Function `compare` - A callback to compare the two sets of analysed data, from
   two recordings.
 - number `threshold` (optional) - If the compared difference is more than this
   value, a warning will be shown.
+- string `compareUnit` (optional) - The unit of the comparison/threshold value.
+  Defaults to the  `unit` property.
 
 ### metric.analyse callback
 

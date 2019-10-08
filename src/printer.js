@@ -86,6 +86,10 @@ function format( num, unit, options = {} ) {
 		// Otherwise, "-" or "".
 		( num < 0 ? '- ' : '' );
 	const abs = Math.abs( num );
+	if ( unit === 'P' ) {
+		// From 0.000 to 1.000.
+		return `P ${num.toFixed(3)}`;
+	}
 	if ( abs === 0 ) {
 		return `${prefix}${abs} ${unit}`;
 	}
@@ -208,7 +212,7 @@ function comparison( writeln, compared ) {
 					format( metric.b.mean, metric.unit ) +
 						` (± ${format( metric.b.stdev, metric.unit )})`,
 					// Diff
-					format( metric.diff, metric.unit, { plus: true } ),
+					format( metric.diff, metric.compareUnit, { plus: true } ),
 					// Symbol (optional)
 					''
 				];

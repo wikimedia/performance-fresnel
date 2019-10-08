@@ -86,13 +86,15 @@ function isProbe( value ) {
  *
  * - string `caption` - A short description of this metric.
  * - string `unit` - The unit for this metric.
- *   Must be one of: `ms`, or `B`.
+ *   Must be one of: `ms`, `B`, `P`.
  * - Function `analyse` - A callback to aggregate and analyse data from thes probes,
  *   as gathered from multiple runs.
  * - Function `compare` - A callback to compare the two sets of analysed data, from
  *   two recordings.
  * - number `threshold` (optional) - If the compared difference is more than this
  *   value, a warning will be shown.
+ * - string `compareUnit` (optional) - The unit of the comparison/threshold value.
+ *   Defaults to the  `unit` property.
  *
  * ### metric.analyse callback
  *
@@ -150,7 +152,8 @@ function isReport( value ) {
 			unit: 'string',
 			analyse: 'function',
 			compare: 'function',
-			threshold: [ 'number', 'undefined' ]
+			threshold: [ 'number', 'undefined' ],
+			compareUnit: [ 'string', 'undefined' ]
 		}, 'report#metric' );
 	}
 }

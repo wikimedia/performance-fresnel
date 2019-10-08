@@ -275,6 +275,7 @@ async function compare( outputDir, labelA, labelB ) {
 						a: a,
 						b: b,
 						diff: diff,
+						compareUnit: metric.compareUnit || metric.unit,
 						judgement: judgement
 					};
 					if ( judgement === false ) {
