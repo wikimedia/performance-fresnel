@@ -8,6 +8,6 @@
 |   Time from responseEnd to domComplete (processing)  | 3.500 s (± 0 ms) | 4.400 s (± 0 ms) |  + 900 ms | ✘ |
 |   Time from loadEventStart to loadEventEnd (onLoad)  | <0.1 ms (± 0 ms) | <0.1 ms (± 0 ms) |      0 ms |   |
 | paint:                                               |                  |                  |           |   |
-|   Time to first paint (TTFP)                         | 6.500 s (± 0 ms) | 7.100 s (± 0 ms) |   P 0.501 |   |
-|   Total to first contentful paint (TTFCP)            | 6.600 s (± 0 ms) | 7.100 s (± 0 ms) |   P 0.501 |   |
+|   Time to first paint (TTFP)                         | 6.500 s (± 0 ms) | 7.100 s (± 0 ms) |   P 0.977 | ✘ |
+|   Total to first contentful paint (TTFCP)            | 6.600 s (± 0 ms) | 7.100 s (± 0 ms) |   P 0.977 | ✘ |
 |------------------------------------------------------|------------------|------------------|-----------|---|
