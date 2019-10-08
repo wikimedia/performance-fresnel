@@ -86,11 +86,11 @@ QUnit.module( 'e2e/conductor', ( hooks ) => {
 	} );
 
 	QUnit.test( 'compare()', ( assert ) => {
-		const outputDir = path.join( __dirname, 'fixtures/basic-records' );
+		const outputDir = path.join( __dirname, 'fixtures/compare-records' );
 
 		return conductor.compare( outputDir, 'one', 'two' ).then( ( compared ) => {
 
-			const expected = require( './fixtures/basic-compare.json' );
+			const expected = require( './fixtures/compare.json' );
 			assert.propEqual( compared.result, expected, 'result' );
 		} );
 	} );

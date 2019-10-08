@@ -58,10 +58,10 @@ QUnit.module( 'e2e/cli', ( hooks ) => {
 	} );
 
 	QUnit.test( 'compare - forward', ( assert ) => {
-		process.env.FRESNEL_DIR = path.join( __dirname, 'fixtures/basic-records' );
+		process.env.FRESNEL_DIR = path.join( __dirname, 'fixtures/compare-records' );
 
 		return cli( 'compare', 'one', 'two' ).then( () => {
-			const expected = fs.readFileSync( path.join( __dirname, 'fixtures/basic-compare-forward.txt' ), 'utf8' );
+			const expected = fs.readFileSync( path.join( __dirname, 'fixtures/compare-forward.txt' ), 'utf8' );
 			assert.propEqual(
 				out.trim().replace( rColor, '' ).split( '\n' ),
 				expected.trim().split( '\n' ),
@@ -71,14 +71,14 @@ QUnit.module( 'e2e/cli', ( hooks ) => {
 	} );
 
 	QUnit.test( 'compare - backward', ( assert ) => {
-		process.env.FRESNEL_DIR = path.join( __dirname, 'fixtures/basic-records' );
+		process.env.FRESNEL_DIR = path.join( __dirname, 'fixtures/compare-records' );
 
 		const fail = cli( 'compare', 'two', 'one' );
 		assert.rejects( fail, 'exit code' );
 
 		return fail.catch( () => {
 			const expected = fs.readFileSync(
-				path.join( __dirname, 'fixtures/basic-compare-backward.txt' ),
+				path.join( __dirname, 'fixtures/compare-backward.txt' ),
 				'utf8'
 			);
 			assert.propEqual(
