@@ -1,4 +1,16 @@
 
+0.5.0 / 2019-10-21
+==================
+
+### Added
+* compute: Add diffMannWhitney(). (Timo Tijhof)
+
+### Changed
+* compute: Rename compareStdev() to diffStdev(). (Timo Tijhof)
+* reports: Switch paint timing judgement from Stdev to Mann-Whitney. (Timo Tijhof)
+* reports: Raise threshold for bytes transfers from 1B to 3B. (Timo Tijhof)
+* build: Update js-yaml and puppeteer (Chromium 77). (Timo Tijhof)
+
 0.4.0 / 2019-07-25
 ==================
 
