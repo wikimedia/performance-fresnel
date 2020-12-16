@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/wikimedia/fresnel.svg?branch=master)](https://travis-ci.com/wikimedia/fresnel) [![npm](https://img.shields.io/npm/v/fresnel.svg)](https://www.npmjs.com/package/fresnel)
+[![npm](https://img.shields.io/npm/v/fresnel.svg)](https://www.npmjs.com/package/fresnel)
 
 # Fresnel
 
