@@ -20,7 +20,6 @@ module.exports = {
 			unit: 'ms',
 			analyse: ( series ) => compute.stats( series.paint[ 'first-paint' ] ),
 			compare: ( a, b ) => compute.diffMannWhitney( a, b ),
-			threshold: 0.95,
 			compareUnit: 'P'
 		},
 
@@ -29,7 +28,6 @@ module.exports = {
 			unit: 'ms',
 			analyse: ( series ) => compute.stats( series.paint[ 'first-contentful-paint' ] ),
 			compare: ( a, b ) => compute.diffMannWhitney( a, b ),
-			threshold: 0.95,
 			compareUnit: 'P'
 		}
 	}
