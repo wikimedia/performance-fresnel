@@ -12,13 +12,13 @@ const objToString = Object.prototype.toString;
 class Validation extends Error {
 	constructor( message, inputName ) {
 		super( message );
-		this.name = `Validation${(inputName ? ` of ${inputName}` : '')}`;
+		this.name = `Validation${( inputName ? ` of ${inputName}` : '' )}`;
 	}
 }
 
 /**
  * @ignore
- * @param {mixed} value
+ * @param {Mixed} value
  * @return {boolean}
  */
 function plainObject( value ) {
@@ -34,7 +34,7 @@ function plainObject( value ) {
 
 /**
  * @ignore
- * @param {mixed} value
+ * @param {Mixed} value
  * @return {string}
  */
 function type( value ) {
@@ -98,7 +98,7 @@ function like( value, shape, name ) {
  * Whether a given value is a valid Fresnel scenario.
  *
  * @param {Object} value
- * @throw {Error} If invalid
+ * @throws {Error} If invalid
  */
 function scenario( value ) {
 	like( value, {
@@ -117,7 +117,7 @@ function scenario( value ) {
  * Whether a given value is a valid Fresnel configuration object.
  *
  * @param {Object} value
- * @throw {Error} If invalid
+ * @throws {Error} If invalid
  */
 function config( value ) {
 	like( value, {

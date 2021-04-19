@@ -1,0 +1,12 @@
+{
+	"root": true,
+	"extends": "wikimedia/server",
+	"rules": {
+		"no-loop-func": "off",
+		"no-tabs": "off",
+		"jsdoc/no-undefined-types": "off",
+		"jsdoc/valid-types": "off",
+		"no-unused-vars": [ "error", { "argsIgnorePattern": "^_" } ],
+		"no-throw-literal": "off"
+	}
+}

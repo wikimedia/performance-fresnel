@@ -46,8 +46,8 @@ const is = require( './util/is' );
  * Whether a given export is a valid {@link Probe}.
  *
  * @ignore
- * @param {mixed|Probe} value
- * @throw {Error} If invalid
+ * @param {Mixed|Probe} value
+ * @throws {Error} If invalid
  */
 function isProbe( value ) {
 	is.like( value, {
@@ -137,8 +137,8 @@ function isProbe( value ) {
  * Whether a given export is a valid {@link Report}.
  *
  * @ignore
- * @param {mixed|Report} value
- * @throw {Error} If invalid
+ * @param {Mixed|Report} value
+ * @throws {Error} If invalid
  */
 function isReport( value ) {
 	is.like( value, {

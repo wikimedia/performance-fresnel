@@ -11,8 +11,6 @@
  * @module cli
  */
 
-/* eslint-disable no-console */
-
 const fs = require( 'fs' );
 const path = require( 'path' );
 
@@ -90,7 +88,7 @@ function help( command ) {
  * @private
  * @param {string} command
  * @param {...string} params
- * @reject {number} Process exit code
+ * @throws {number} Process exit code
  */
 async function cli( command, ...params ) {
 	if ( command === 'record' ) {
@@ -106,12 +104,13 @@ async function cli( command, ...params ) {
 		const config = yaml.safeLoad( fs.readFileSync( file, 'utf8' ) );
 		const outputDir = process.env.FRESNEL_DIR || '.fresnel_records';
 
-		return await conductor.record(
+		await conductor.record(
 			config,
 			outputDir,
 			label,
 			printer.progress.bind( null, console.log )
 		);
+		return;
 	}
 
 	if ( command === 'compare' ) {
@@ -132,7 +131,7 @@ async function cli( command, ...params ) {
 			throw 1;
 		}
 
-		return compared;
+		return;
 	}
 
 	if ( command === 'version' ) {

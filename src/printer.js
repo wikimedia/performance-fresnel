@@ -8,8 +8,6 @@
  * @module printer
  */
 
-/* eslint-disable prefer-template */
-
 const color = {
 	bold: '\u001b[1m',
 	red: '\u001b[31m',
@@ -88,7 +86,7 @@ function format( num, unit, options = {} ) {
 	const abs = Math.abs( num );
 	if ( unit === 'P' ) {
 		// From 0.000 to 1.000.
-		return `P ${num.toFixed(3)}`;
+		return `P ${num.toFixed( 3 )}`;
 	}
 	if ( abs === 0 ) {
 		return `${prefix}${abs} ${unit}`;
@@ -108,15 +106,15 @@ function format( num, unit, options = {} ) {
 	if ( unit === 'B' ) {
 		if ( abs > 1000000 ) {
 			// above 1 MB
-			return `${prefix}${(abs / 1000000).toFixed(1)} MB`;
+			return `${prefix}${( abs / 1000000 ).toFixed( 1 )} MB`;
 		}
 		if ( abs > 100000 ) {
 			// above 100 kB
-			return `${prefix}${(abs / 1000).toFixed(0)} kB`;
+			return `${prefix}${( abs / 1000 ).toFixed( 0 )} kB`;
 		}
 		if ( abs > 1000 ) {
 			// above 1 kB
-			return `${prefix}${(abs / 1000).toFixed(1)} kB`;
+			return `${prefix}${( abs / 1000 ).toFixed( 1 )} kB`;
 		}
 	}
 	// handle 0—1000 B, and unknown units
@@ -160,8 +158,8 @@ function printTable( writeln, rows ) {
 		return '-'.repeat( colWidth );
 	} ).join( BORDER_SEP ) + BORDER_SEP;
 
-	rows.forEach( ( row, rowIndex ) => {
-		if ( row[0] === 'BORDER_LINE' ) {
+	rows.forEach( ( row, _i ) => {
+		if ( row[ 0 ] === 'BORDER_LINE' ) {
 			// Border where requested
 			writeln( borderLine );
 		} else {
@@ -178,9 +176,9 @@ function printTable( writeln, rows ) {
 }
 
 /**
-* @param {Function} writeln
-* @param {Object} compared As produced by {@link module:conductor~compare conductor.compare}
-*/
+ * @param {Function} writeln
+ * @param {Object} compared As produced by {@link module:conductor~compare conductor.compare}
+ */
 function comparison( writeln, compared ) {
 	const headRow = [
 		'Metric',

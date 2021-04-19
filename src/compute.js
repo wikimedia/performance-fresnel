@@ -105,6 +105,76 @@ function diffStdev( before, after ) {
 }
 
 /**
+ * Find the rank for each value, giving any tied values the mean of the ranks
+ * that they cover. The ranks are used to calculate the U score. Also find
+ * the adjustment constant, used for calculating the standard deviation of U.
+ *
+ * Example:
+ *
+ *     values: [ 4, 9, 8, 7, 3, 6, 6 ]
+ *     sorted: [ 3, 4, 6, 6, 7, 8, 9 ]
+ *     place:  [ 1, 6, 5, 4, 0, 2, 3 ]
+ *     ranks:  [ 2, 7, 6, 5, 1, 3.5, 3.5 ]
+ *
+ * @param {number[]} values
+ * @return {Array} ranks of the values, adjustment constant
+ */
+function ranks( values ) {
+	// Sort the values
+	const sorted = values.slice().sort( ( a, b ) => {
+		return a - b;
+	} );
+
+	// Find the index of each value in the sorted array
+	const startSearch = {};
+	const place = sorted.map( ( v, _i ) => {
+		const ret = values.indexOf( v, startSearch[ v ] );
+		startSearch[ v ] = ret + 1;
+		return ret;
+	} );
+
+	// Find the rank of each value
+	// The rank is usually the index + 1, except...
+	// For tied values, the rank is the mean of their indices + 1
+	let adjustment = 0;
+	let i = 0;
+	const order = [];
+	while ( i < values.length ) {
+		let j = i;
+
+		while (
+			j + 1 <= values.length &&
+			values[ place[ i ] ] === values[ place[ j + 1 ] ]
+		) {
+			j += 1;
+		}
+
+		if ( j > i ) {
+			// There are tied values, so find the mean of their ranks
+			const numTies = j - i + 1;
+			let meanRank = 0;
+			for ( let k = i; k < j + 1; k++ ) {
+				meanRank += k;
+			}
+			meanRank /= numTies;
+			for ( let k = i; k < j + 1; k++ ) {
+				order[ place[ k ] ] = meanRank + 1;
+			}
+
+			// Adjustment constant is t^3 - t, where t is the number of ties
+			adjustment += Math.pow( numTies, 3 ) - numTies;
+		} else {
+			// This value is unique
+			order[ place[ i ] ] = i + 1;
+		}
+
+		i = j + 1;
+	}
+
+	return [ order, adjustment ];
+}
+
+/**
  * Perform an approximate Mann-Whitney U test on two sets of values to test
  * whether the values in the second set are significantly higher. The test
  * is a non-parametric test that compares the ranks of the values without
@@ -152,7 +222,7 @@ function mannWhitney( before, after ) {
 				)
 			)
 		) / 12
-	)
+	);
 
 	if ( mu === 0 && sigma === 0 ) {
 		// Values all equal
@@ -179,76 +249,6 @@ function mannWhitney( before, after ) {
  */
 function diffMannWhitney( before, after ) {
 	return 1 - mannWhitney( before, after );
-}
-
-/**
- * Find the rank for each value, giving any tied values the mean of the ranks
- * that they cover. The ranks are used to calculate the U score. Also find
- * the adjustment constant, used for calculating the standard deviation of U.
- *
- * Example:
- *
- *     values: [ 4, 9, 8, 7, 3, 6, 6 ]
- *     sorted: [ 3, 4, 6, 6, 7, 8, 9 ]
- *     place:  [ 1, 6, 5, 4, 0, 2, 3 ]
- *     ranks:  [ 2, 7, 6, 5, 1, 3.5, 3.5 ]
- *
- * @param {number[]} values
- * @return {Array} ranks of the values, adjustment constant
- */
-function ranks( values ) {
-	// Sort the values
-	const sorted = values.slice().sort( ( a, b ) => {
-		return a - b;
-	} );
-
-	// Find the index of each value in the sorted array
-	const startSearch = {};
-	const place = sorted.map( ( v, i ) => {
-		const ret = values.indexOf( v, startSearch[ v ] );
-		startSearch[ v ] = ret + 1;
-		return ret;
-	} );
-
-	// Find the rank of each value
-	// The rank is usually the index + 1, except...
-	// For tied values, the rank is the mean of their indices + 1
-	let adjustment = 0;
-	let i = 0;
-	const order = [];
-	while ( i < values.length ) {
-		let j = i;
-
-		while (
-			j + 1 <= values.length &&
-			values[ place[ i ] ] === values[ place[ j + 1 ] ]
-		) {
-			j += 1;
-		}
-
-		if ( j > i ) {
-			// There are tied values, so find the mean of their ranks
-			const numTies = j - i + 1;
-			let meanRank = 0;
-			for ( let k = i; k < j + 1; k++ ) {
-				meanRank += k;
-			}
-			meanRank /= numTies;
-			for ( let k = i; k < j + 1; k++ ) {
-				order[ place[ k ] ] = meanRank + 1;
-			}
-
-			// Adjustment constant is t^3 - t, where t is the number of ties
-			adjustment += Math.pow( numTies, 3 ) - numTies;
-		} else {
-			// This value is unique
-			order[ place[ i ] ] = i + 1;
-		}
-
-		i = j + 1;
-	}
-
-	return [ order, adjustment ];
 }
 
 module.exports = { subtract, stats, diffStdev, mannWhitney, diffMannWhitney };

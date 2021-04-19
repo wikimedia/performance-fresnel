@@ -57,7 +57,7 @@ async function record( config, outputDir, label, progress = () => {} ) {
 
 	// The record will contain meta-data about every scenario,
 	// and the data collected by probes on each of the runs.
-	const record = {
+	const rec = {
 		scenarios: {}
 	};
 
@@ -70,7 +70,7 @@ async function record( config, outputDir, label, progress = () => {} ) {
 	const launchOpts = ( process.env.CHROMIUM_FLAGS ) ?
 		{ args: process.env.CHROMIUM_FLAGS.split( /\s+/ ) } :
 		{};
-	const browser = await puppeteer.launch( launchOpts )
+	const browser = await puppeteer.launch( launchOpts );
 
 	// Step 3: Perform each configured scenario
 	//
@@ -84,7 +84,7 @@ async function record( config, outputDir, label, progress = () => {} ) {
 	try {
 		for ( const key in config.scenarios ) {
 			const scenario = config.scenarios[ key ];
-			record.scenarios[ key ] = {
+			rec.scenarios[ key ] = {
 				options: {
 					url: scenario.url,
 					viewport: scenario.viewport,
@@ -98,11 +98,11 @@ async function record( config, outputDir, label, progress = () => {} ) {
 			if ( scenario.reports ) {
 				scenario.reports.forEach( ( reportKey ) => {
 					const report = reportReg.get( reportKey );
-					report.probes.forEach( ( key ) => probes.add( probeReg.get( key ) ) );
+					report.probes.forEach( ( probe ) => probes.add( probeReg.get( probe ) ) );
 				} );
 			}
 			if ( scenario.probes ) {
-				scenario.probes.forEach( ( key ) => probes.add( probeReg.get( key ) ) );
+				scenario.probes.forEach( ( probe ) => probes.add( probeReg.get( probe ) ) );
 			}
 
 			if ( config.warmup ) {
@@ -119,7 +119,7 @@ async function record( config, outputDir, label, progress = () => {} ) {
 					browser,
 					progress
 				);
-				record.scenarios[ key ].runs.push( probeDatas );
+				rec.scenarios[ key ].runs.push( probeDatas );
 			}
 		}
 
@@ -191,17 +191,17 @@ async function record( config, outputDir, label, progress = () => {} ) {
 		}
 	}
 
-	for ( const key in record.scenarios ) {
-		addCombinedData( record.scenarios[ key ] );
-		addAnalysedData( record.scenarios[ key ] );
+	for ( const key in rec.scenarios ) {
+		addCombinedData( rec.scenarios[ key ] );
+		addAnalysedData( rec.scenarios[ key ] );
 	}
 
 	// Step 5: Lastly, write the record to disk.
-	fs.writeFileSync( writer.getPath( 'record.json' ), JSON.stringify( record, null, 2 ) );
+	fs.writeFileSync( writer.getPath( 'record.json' ), JSON.stringify( rec, null, 2 ) );
 
 	progress( 'conductor/record-end', { label: label } );
 
-	return record;
+	return rec;
 }
 
 /**
@@ -217,10 +217,10 @@ async function compare( outputDir, labelA, labelB ) {
 	const reportReg = new Registry( Registry.isReport, reportsIndex );
 
 	// Step 1: Read the original records
-	const fileA = path.join( path.resolve( outputDir ), labelA, 'record.json' );
-	const fileB = path.join( path.resolve( outputDir ), labelB, 'record.json' );
-	const recordA = require( fileA );
-	const recordB = require( fileB );
+	const pathA = path.join( path.resolve( outputDir ), labelA, 'record.json' );
+	const pathB = path.join( path.resolve( outputDir ), labelB, 'record.json' );
+	const fileA = require( pathA );
+	const fileB = require( pathB );
 
 	// Step 2: Compare the analysed records.
 	function makeJudgement( threshold, diff ) {
@@ -288,7 +288,7 @@ async function compare( outputDir, labelA, labelB ) {
 		return { result, warnings };
 	}
 
-	return makeComparison( recordA, recordB );
+	return makeComparison( fileA, fileB );
 }
 
 module.exports = { record, compare };

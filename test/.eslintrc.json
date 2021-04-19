@@ -1,0 +1,20 @@
+{
+  "root": true,
+  "extends": [
+    "wikimedia/qunit",
+    "../.eslintrc.json"
+  ],
+  "rules": {
+    "no-console": "off"
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/*.json"
+      ],
+      "rules": {
+        "indent": [ "error", 2 ]
+      }
+    }
+  ]
+}

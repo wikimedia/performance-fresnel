@@ -176,9 +176,9 @@ Functions to help with numerical computations.
     * [~subtract(seqA, seqB)](#module_compute..subtract) ⇒ <code>Array.&lt;number&gt;</code>
     * [~stats(values)](#module_compute..stats) ⇒ <code>Object</code>
     * [~diffStdev(before, after)](#module_compute..diffStdev) ⇒ <code>number</code>
+    * [~ranks(values)](#module_compute..ranks) ⇒ <code>Array</code>
     * [~mannWhitney(before, after)](#module_compute..mannWhitney) ⇒ <code>number</code>
     * [~diffMannWhitney(before, after)](#module_compute..diffMannWhitney) ⇒ <code>number</code>
-    * [~ranks(values)](#module_compute..ranks) ⇒ <code>Array</code>
 
 <a name="module_compute..subtract"></a>
 
@@ -246,6 +246,27 @@ for your metric, then a negative difference represents an improvement.
 | before | <code>Object</code> | 
 | after | <code>Object</code> | 
 
+<a name="module_compute..ranks"></a>
+
+### compute~ranks(values) ⇒ <code>Array</code>
+Find the rank for each value, giving any tied values the mean of the ranks
+that they cover. The ranks are used to calculate the U score. Also find
+the adjustment constant, used for calculating the standard deviation of U.
+
+Example:
+
+    values: [ 4, 9, 8, 7, 3, 6, 6 ]
+    sorted: [ 3, 4, 6, 6, 7, 8, 9 ]
+    place:  [ 1, 6, 5, 4, 0, 2, 3 ]
+    ranks:  [ 2, 7, 6, 5, 1, 3.5, 3.5 ]
+
+**Kind**: inner method of [<code>compute</code>](#module_compute)  
+**Returns**: <code>Array</code> - ranks of the values, adjustment constant  
+
+| Param | Type |
+| --- | --- |
+| values | <code>Array.&lt;number&gt;</code> | 
+
 <a name="module_compute..mannWhitney"></a>
 
 ### compute~mannWhitney(before, after) ⇒ <code>number</code>
@@ -291,27 +312,6 @@ It is computed as 1 minus the [Mann-Whitney p-value](#module_compute..mannWhitne
 | --- | --- |
 | before | <code>Object</code> | 
 | after | <code>Object</code> | 
-
-<a name="module_compute..ranks"></a>
-
-### compute~ranks(values) ⇒ <code>Array</code>
-Find the rank for each value, giving any tied values the mean of the ranks
-that they cover. The ranks are used to calculate the U score. Also find
-the adjustment constant, used for calculating the standard deviation of U.
-
-Example:
-
-    values: [ 4, 9, 8, 7, 3, 6, 6 ]
-    sorted: [ 3, 4, 6, 6, 7, 8, 9 ]
-    place:  [ 1, 6, 5, 4, 0, 2, 3 ]
-    ranks:  [ 2, 7, 6, 5, 1, 3.5, 3.5 ]
-
-**Kind**: inner method of [<code>compute</code>](#module_compute)  
-**Returns**: <code>Array</code> - ranks of the values, adjustment constant  
-
-| Param | Type |
-| --- | --- |
-| values | <code>Array.&lt;number&gt;</code> | 
 
 <a name="module_conductor"></a>
 

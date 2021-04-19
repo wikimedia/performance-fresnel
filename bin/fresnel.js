@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-/* eslint-disable no-console */
+/* eslint-disable no-process-exit */
 
 // argv: 0 = bin/node
 // 1 = bin/fresnel

@@ -7,7 +7,7 @@
  * @see <https://www.w3.org/TR/resource-timing-2/>
  */
 
-const parseurl = require( 'url' ).parse;
+const URL = require( 'url' ).URL;
 const compute = require( '../compute' );
 
 const rImg = /\.(?:jpeg|jpg|gif|png|svg)$/;
@@ -26,7 +26,7 @@ function getSizesFromEntries( category, entries ) {
 	entries.forEach( ( entry ) => {
 		sizes.total += entry.transferSize;
 
-		const path = parseurl( entry.name ).pathname;
+		const path = ( new URL( entry.name ) ).pathname;
 		switch ( entry.initiatorType ) {
 			case 'navigation':
 				sizes.html += entry.transferSize;
