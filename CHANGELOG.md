@@ -1,3 +1,9 @@
+1.0.0 / 2021-05-30
+==================
+
+### Changed
+* paint: Remove failure threshold from paint metrics. (Timo Tijhof) [T268815](https://phabricator.wikimedia.org/T268815)
+* build: Update puppeteer, now using Chromium 83. (Timo Tijhof)
 
 0.5.0 / 2019-10-21
 ==================

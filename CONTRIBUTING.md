@@ -13,17 +13,48 @@ command-line:
 $ git clone https://gerrit.wikimedia.org/r/performance/fresnel
 $ cd fresnel/
 
-fresnel$ npm install
+fresnel$ npm ci
 fresnel$ npm link
 
 # Then, use the 'fresnel' command.
 ```
 
+For example, if you use [Fresh](https://gerrit.wikimedia.org/g/fresh/)
+and want to locally benchmark a change to MediaWiki:
+
+```
+you$ cd Dev/
+you:Dev$ fresh-node -root -net -env
+
+nobody:Dev$ cd fresnel/
+nobody:fresnel$ npm ci && npm link
+nobody:fresnel$ fresnel --version
+…
+
+nobody:fresnel$ cd ../mediawiki
+nobody:mediawiki (master)$ fresnel record before
+…
+
+# now, make some changes
+…
+nobody:mediawiki (my-changes)$ fresnel record after
+…
+nobody:mediawiki (my-changes)$ fresnel compare before after
+…
+| Metric    | Before | After | Diff |
+…
+
+# you can now repeat:
+# * make more changes
+# * re-record 'after'
+# * compare
+```
+
 ## Build steps
 
-* `npm run test`
+* `npm test`
   Runs the linter, tests and regenerate the API docs.
-  To run a specific test suite only, use `npx qunit path/to/test.js`
+  To run a specific test suite only, use `npm run qunit -- path/to/a/test.js`
 * `npm run doc`
   Regenerates the API docs.
 * `npm run doc:dump`
@@ -47,14 +78,16 @@ View the latest code coverage report at <https://doc.wikimedia.org/cover/fresnel
 
 To prepare the release commit, follow these steps:
 
-1. Set the next version in `package.json`.
-2. Run `npm install` to ensure the `npm-shrinkwrap.json` file reflects the version change.
-   If it contains other changes as well, this means a previous commit forgot to update
-   the shrinkwrap when changing dependencies. In that case, commit and review those changes
-   first on their own, before preceeding with the release.
-3. Add a section to `CHANGELOG.md` for this release. If you have [git-extras](https://github.com/tj/git-extras)
-   installed, use `npm run changelog` to automatically create a section with today's date and the commits
-   since the previous release.
+1. Add a section to `CHANGELOG.md` for this release. Use `npm run changelog` to generate the bullet
+   points with changes since the last release.
 
    Only mention changes that affect the public API, CLI, or program output.
    and use Added/Changed/Deprecated/Removed/Fixed headings accordingly (see [keepachangelog.com](https://keepachangelog.com/en/1.0.0/)).
+2. Set the next version in `package.json`.
+3. Run `npm install` to ensure the `npm-shrinkwrap.json` file reflects the version change.
+   If it contains other changes as well, this means a previous commit forgot to update
+   the shrinkwrap when changing dependencies. In that case, commit and review those changes
+   first on their own, before preceeding with the release.
+4. Stage and commit the changes with message `Release X.Y.Z`,
+   and push it for review.
+5. Once merged by CI, run `npm publish`.
