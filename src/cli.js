@@ -101,7 +101,7 @@ async function cli( command, ...params ) {
 
 		// Read config file from current working directory
 		const file = path.join( process.cwd(), '.fresnel.yml' );
-		const config = yaml.safeLoad( fs.readFileSync( file, 'utf8' ) );
+		const config = yaml.load( fs.readFileSync( file, 'utf8' ) );
 		const outputDir = process.env.FRESNEL_DIR || '.fresnel_records';
 
 		await conductor.record(
