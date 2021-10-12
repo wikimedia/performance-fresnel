@@ -1,3 +1,9 @@
+1.1.0 / 2021-10-12
+==================
+
+### Changed
+* build: Update puppeteer, now using Chromium 90. (Timo Tijhof) [T293150](https://phabricator.wikimedia.org/T293150)
+
 1.0.0 / 2021-05-30
 ==================
 
