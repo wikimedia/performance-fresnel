@@ -1,3 +1,12 @@
+1.1.1 / 2021-10-12
+==================
+
+### Fixed
+* build: Switch to lockVersion 2 in npm-shrinkwrap.json.
+  lockVersion 2 is additive and backward-compatible with lockVersion 1,
+  and thus remains Node 10 and npm 6 compatible. However, npm 7+ is unable
+  to install puppeteer with lockVersion 1. [T293150](https://phabricator.wikimedia.org/T293150)
+
 1.1.0 / 2021-10-12
 ==================
 
