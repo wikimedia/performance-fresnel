@@ -29,7 +29,7 @@ A scenario consists of the following options:
 
   Default: `{ width: 1100, height: 700 }`
 
-  For additional viewport properties, see [puppeteer/Page.setViewport](https://pptr.dev/#?product=Puppeteer&version=v1.11.0&show=api-pagesetviewportviewport).
+  For additional viewport properties, see [puppeteer/Page.setViewport](https://pptr.dev/#?product=Puppeteer&version=v7.0.0&show=api-pagesetviewportviewport).
 * reports: List of Fresnel reports to enable for this scenario.
 
   Available:
@@ -44,7 +44,7 @@ A scenario consists of the following options:
 
 Examples of Fresnel config files:
 * [Fresnel test fixture](./test/fixtures/basic/.fresnel.yml)
-* [MediaWiki](https://github.com/wikimedia/mediawiki/blob/master/.fresnel.yml)
+* [MediaWiki](https://gerrit.wikimedia.org/g/mediawiki/core/+/HEAD/.fresnel.yml)
 
 
 ## Usage
