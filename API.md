@@ -18,7 +18,7 @@ config file.</p>
 </dd>
 <dt><a href="#module_conductor">conductor</a></dt>
 <dd><p>The program interface for Fresnel commands.</p>
-<p>Interacts with: <a href="https://pptr.dev/#?product=Puppeteer&amp;version=v4.0.1&amp;show=api-class-browser">puppeteer/Browser</a>,
+<p>Interacts with: <a href="https://pptr.dev/#?product=Puppeteer&version=v4.0.1&show=api-class-browser">puppeteer/Browser</a>,
 <a href="#Writer">Writer</a>, <a href="#Probe">Probe</a>, and <a href="#Report">Report</a>.</p>
 </dd>
 <dt><a href="#module_printer">printer</a></dt>
@@ -71,13 +71,13 @@ subdirectories created within it.</p>
 scenarios.</p>
 <h4 id="probebefore">probe.before</h4>
 <p>The <code>before</code> callback runs before the web page starts loading. Use this to make changes to the
-browser tab (via <a href="https://pptr.dev/#?product=Puppeteer&amp;version=v4.0.1&amp;show=api-class-page">puppeteer/Page</a>, or higher-level objects accessed via that,
-such as <a href="https://pptr.dev/#?product=Puppeteer&amp;version=v4.0.1&amp;show=api-class-browser">puppeteer/Browser</a>). Examples of things one might do here:
+browser tab (via <a href="https://pptr.dev/#?product=Puppeteer&version=v4.0.1&show=api-class-page">puppeteer/Page</a>, or higher-level objects accessed via that,
+such as <a href="https://pptr.dev/#?product=Puppeteer&version=v4.0.1&show=api-class-browser">puppeteer/Browser</a>). Examples of things one might do here:
 set the viewport, start timeline tracing, disable JavaScript, grant permission for Geo location,
 simulate a certain GPS position, etc.</p>
 <p>Parameters:</p>
 <ul>
-<li><a href="https://pptr.dev/#?product=Puppeteer&amp;version=v4.0.1&amp;show=api-class-page">puppeteer/Page</a> <code>page</code>: The browser tab.</li>
+<li><a href="https://pptr.dev/#?product=Puppeteer&version=v4.0.1&show=api-class-page">puppeteer/Page</a> <code>page</code>: The browser tab.</li>
 <li><a href="#Writer">Writer</a> <code>writer</code>: Use this to obtain file paths to write
 artefacts to.</li>
 </ul>
@@ -89,7 +89,7 @@ web platform APIs, as well as any custom JavaScript interfaces exposed by code f
 web page itself.</p>
 <p>Parameters:</p>
 <ul>
-<li><a href="https://pptr.dev/#?product=Puppeteer&amp;version=v4.0.1&amp;show=api-class-page">puppeteer/Page</a> <code>page</code>: The browser tab.</li>
+<li><a href="https://pptr.dev/#?product=Puppeteer&version=v4.0.1&show=api-class-page">puppeteer/Page</a> <code>page</code>: The browser tab.</li>
 <li><a href="#Writer">Writer</a> <code>writer</code>: Use this to obtain file paths to write artefacts to.</li>
 <li>Function <code>addData</code>: Use this to store key/value pairs that should be
 saved as part of the Fresnel record. These must be serialisable as JSON.</li>
