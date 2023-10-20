@@ -6,8 +6,6 @@
 const fs = require( 'fs' );
 const path = require( 'path' );
 
-const rimraf = require( 'rimraf' );
-
 const Writer = require( '../src/Writer' );
 const mktmpdir = require( './util/tmpdir' );
 
@@ -17,7 +15,7 @@ QUnit.module( 'writer', ( hooks ) => {
 		testDir = mktmpdir( 'fresnel_test' );
 	} );
 	hooks.afterEach( () => {
-		rimraf.sync( testDir );
+		fs.rmSync( testDir, { force: true, recursive: true } );
 	} );
 
 	QUnit.test( 'Writer#constructor()', ( assert ) => {

@@ -3,10 +3,8 @@
  * End-to-end test for `cli`.
  */
 
-const path = require( 'path' );
 const fs = require( 'fs' );
-
-const rimraf = require( 'rimraf' );
+const path = require( 'path' );
 
 const cli = require( '../src/cli' );
 const fileUrl = require( './util/file-url' );
@@ -37,7 +35,7 @@ QUnit.module( 'e2e/cli', ( hooks ) => {
 	} );
 	hooks.afterEach( () => {
 		process.chdir( orgCwd );
-		rimraf.sync( tmpDir );
+		fs.rmSync( tmpDir, { force: true, recursive: true } );
 
 		// Restore
 		console.log = orgLog;

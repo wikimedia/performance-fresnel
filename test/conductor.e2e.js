@@ -3,9 +3,8 @@
  * End-to-end test for `conductor`.
  */
 
+const fs = require( 'fs' );
 const path = require( 'path' );
-
-const rimraf = require( 'rimraf' );
 
 const conductor = require( '../src/conductor' );
 const fileUrl = require( './util/file-url' );
@@ -17,7 +16,7 @@ QUnit.module( 'e2e/conductor', ( hooks ) => {
 		tmpDir = mktmpdir( 'fresnel_test' );
 	} );
 	hooks.afterEach( () => {
-		rimraf.sync( tmpDir );
+		fs.rmSync( tmpDir, { force: true, recursive: true } );
 	} );
 
 	QUnit.test( 'record() - clean state per run', ( assert ) => {
