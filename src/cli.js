@@ -136,7 +136,7 @@ async function cli( command, ...params ) {
 
 	if ( command === 'version' ) {
 		const version = require( '../package.json' ).version;
-		console.log( `Fresnel ${version}` );
+		console.log( `Fresnel ${ version }` );
 
 		return;
 	}
@@ -147,7 +147,7 @@ async function cli( command, ...params ) {
 		return;
 	}
 
-	console.error( `fresnel: Unknown command - ${command}` );
+	console.error( `fresnel: Unknown command - ${ command }` );
 	help();
 
 	throw 1;

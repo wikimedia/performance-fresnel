@@ -6,7 +6,15 @@
 		"no-tabs": "off",
 		"jsdoc/no-undefined-types": "off",
 		"jsdoc/valid-types": "off",
-		"no-unused-vars": [ "error", { "argsIgnorePattern": "^_" } ],
-		"no-throw-literal": "off"
+		"no-unused-vars": [
+			"error",
+			{
+				"argsIgnorePattern": "^_"
+			}
+		],
+		"no-throw-literal": "off",
+		"n/no-process-exit": "warn",
+		"n/no-unsupported-features/node-builtins": "warn",
+		"es-x/no-arraybuffer-prototype-transfer": "warn"
 	}
 }

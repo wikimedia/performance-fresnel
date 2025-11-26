@@ -121,9 +121,7 @@ function diffStdev( before, after ) {
  */
 function ranks( values ) {
 	// Sort the values
-	const sorted = values.slice().sort( ( a, b ) => {
-		return a - b;
-	} );
+	const sorted = values.slice().sort( ( a, b ) => a - b );
 
 	// Find the index of each value in the sorted array
 	const startSearch = {};
@@ -206,9 +204,7 @@ function mannWhitney( before, after ) {
 	const [ order, adjustment ] = ranks( values );
 	const sumBeforeRanks = order
 		.slice( 0, beforeLen )
-		.reduce( ( a, b ) => {
-			return a + b;
-		} );
+		.reduce( ( a, b ) => a + b );
 
 	const U = sumBeforeRanks - ( beforeLen * ( beforeLen + 1 ) / 2 );
 	// U statistic mean

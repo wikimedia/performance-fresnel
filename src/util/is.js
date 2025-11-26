@@ -12,7 +12,7 @@ const objToString = Object.prototype.toString;
 class Validation extends Error {
 	constructor( message, inputName ) {
 		super( message );
-		this.name = `Validation${( inputName ? ` of ${inputName}` : '' )}`;
+		this.name = `Validation${ ( inputName ? ` of ${ inputName }` : '' ) }`;
 	}
 }
 
@@ -80,16 +80,16 @@ function like( value, shape, name ) {
 		const expected = shape[ key ];
 		const actual = type( value[ key ] );
 		if ( Array.isArray( expected ) ) {
-			if ( expected.indexOf( actual ) === -1 ) {
-				throw new Validation( `Expected "${key}" as ${expected.join( '|' )}, got ${actual}`, name );
+			if ( !expected.includes( actual ) ) {
+				throw new Validation( `Expected "${ key }" as ${ expected.join( '|' ) }, got ${ actual }`, name );
 			}
 		} else if ( actual !== expected ) {
-			throw new Validation( `Expected "${key}" as ${expected}, got ${actual}`, name );
+			throw new Validation( `Expected "${ key }" as ${ expected }, got ${ actual }`, name );
 		}
 	}
 	for ( const key in value ) {
 		if ( !hasOwn.call( shape, key ) ) {
-			throw new Validation( `Unexpected key "${key}"`, name );
+			throw new Validation( `Unexpected key "${ key }"`, name );
 		}
 	}
 }

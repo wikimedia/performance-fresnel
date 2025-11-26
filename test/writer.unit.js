@@ -22,18 +22,16 @@ QUnit.module( 'writer', ( hooks ) => {
 		// Accept
 		{
 			const writer = new Writer( testDir );
-			assert.strictEqual( writer instanceof Writer, true, 'new sub directory' );
+			assert.ok( writer instanceof Writer, 'new sub directory' );
 		}
 		{
 			const writer = new Writer( testDir );
-			assert.strictEqual( writer instanceof Writer, true, 'pre-existing directory' );
+			assert.ok( writer instanceof Writer, 'pre-existing directory' );
 		}
 
 		// Reject
 		{
-			assert.throws( () => {
-				return new Writer( path.join( testDir, 'missing/parent' ) );
-			}, 'two levels away from pre-existing directory' );
+			assert.throws( () => new Writer( path.join( testDir, 'missing/parent' ) ), 'two levels away from pre-existing directory' );
 		}
 	} );
 

@@ -115,7 +115,7 @@ async function record( config, outputDir, label, progress = () => {} ) {
 				const probeDatas = await recorder.run(
 					scenario,
 					probes,
-					writer.child( `scenario-${key}-run-${run}` ),
+					writer.child( `scenario-${ key }-run-${ run }` ),
 					browser,
 					progress
 				);

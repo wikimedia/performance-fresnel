@@ -5,7 +5,10 @@
 		"../.eslintrc.json"
 	],
 	"rules": {
-		"no-console": "off"
+		"no-console": "off",
+		"n/no-unsupported-features/node-builtins": "warn",
+		"es-x/no-arraybuffer-prototype-transfer": "warn",
+		"qunit/no-loose-assertions": "warn"
 	},
 	"overrides": [
 		{
@@ -13,7 +16,10 @@
 				"**/*.json"
 			],
 			"rules": {
-				"indent": [ "error", 2 ]
+				"indent": [
+					"error",
+					2
+				]
 			}
 		},
 		{
@@ -21,7 +27,10 @@
 				".eslintrc.json"
 			],
 			"rules": {
-				"indent": [ "error", "tab" ]
+				"indent": [
+					"error",
+					"tab"
+				]
 			}
 		}
 	]

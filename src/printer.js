@@ -86,40 +86,40 @@ function format( num, unit, options = {} ) {
 	const abs = Math.abs( num );
 	if ( unit === 'P' ) {
 		// From 0.000 to 1.000.
-		return `P ${num.toFixed( 3 )}`;
+		return `P ${ num.toFixed( 3 ) }`;
 	}
 	if ( abs === 0 ) {
-		return `${prefix}${abs} ${unit}`;
+		return `${ prefix }${ abs } ${ unit }`;
 	}
 	if ( abs > 0 && abs < 1 ) {
 		const fraction = Math.ceil( abs * 10 );
-		return `${prefix}<0.${fraction} ${unit}`;
+		return `${ prefix }<0.${ fraction } ${ unit }`;
 	}
 	if ( unit === 'ms' ) {
 		const s = Math.trunc( abs / 1000 );
 		const ms = Math.round( abs % 1000 );
 		if ( s > 0 ) {
-			return `${prefix}${s}.${padLast( String( ms ), 3, '0' )} s`;
+			return `${ prefix }${ s }.${ padLast( String( ms ), 3, '0' ) } s`;
 		}
-		return `${prefix}${ms} ms`;
+		return `${ prefix }${ ms } ms`;
 	}
 	if ( unit === 'B' ) {
 		if ( abs > 1000000 ) {
 			// above 1 MB
-			return `${prefix}${( abs / 1000000 ).toFixed( 1 )} MB`;
+			return `${ prefix }${ ( abs / 1000000 ).toFixed( 1 ) } MB`;
 		}
 		if ( abs > 100000 ) {
 			// above 100 kB
-			return `${prefix}${( abs / 1000 ).toFixed( 0 )} kB`;
+			return `${ prefix }${ ( abs / 1000 ).toFixed( 0 ) } kB`;
 		}
 		if ( abs > 1000 ) {
 			// above 1 kB
-			return `${prefix}${( abs / 1000 ).toFixed( 1 )} kB`;
+			return `${ prefix }${ ( abs / 1000 ).toFixed( 1 ) } kB`;
 		}
 	}
 	// handle 0—1000 B, and unknown units
 	const round = Math.round( abs );
-	return `${prefix}${round} ${unit}`;
+	return `${ prefix }${ round } ${ unit }`;
 }
 
 /**
@@ -130,10 +130,10 @@ function format( num, unit, options = {} ) {
 function progress( writeln, event, message ) {
 	switch ( event ) {
 		case 'conductor/record-start':
-			writeln( `Recording ${Object.keys( message.scenarios ).length} scenario(s) with ${message.runs} run(s) each...` );
+			writeln( `Recording ${ Object.keys( message.scenarios ).length } scenario(s) with ${ message.runs } run(s) each...` );
 			break;
 		default:
-			writeln( `[${event}]`, message || '' );
+			writeln( `[${ event }]`, message || '' );
 	}
 }
 
@@ -154,9 +154,7 @@ function printTable( writeln, rows ) {
 		return Math.max( ...cellWidths ) + PAD_COLS;
 	} );
 
-	const borderLine = BORDER_START + colWidths.map( ( colWidth ) => {
-		return '-'.repeat( colWidth );
-	} ).join( BORDER_SEP ) + BORDER_SEP;
+	const borderLine = BORDER_START + colWidths.map( ( colWidth ) => '-'.repeat( colWidth ) ).join( BORDER_SEP ) + BORDER_SEP;
 
 	rows.forEach( ( row, _i ) => {
 		if ( row[ 0 ] === 'BORDER_LINE' ) {
@@ -193,22 +191,22 @@ function comparison( writeln, compared ) {
 		const reports = compared[ scenario ];
 		writeln( '' );
 		writeln( '' );
-		writeln( `### scenario ${scenario}` );
+		writeln( `### scenario ${ scenario }` );
 		const rows = [ borderRow, headRow, borderRow ];
 		for ( const report in reports ) {
 			const metrics = reports[ report ];
-			rows.push( [ `${report}:`, '', '', '', '' ] );
+			rows.push( [ `${ report }:`, '', '', '', '' ] );
 			for ( const metricKey in metrics ) {
 				const metric = metrics[ metricKey ];
 				const row = [
 					// Metric
-					`  ${metric.caption} (${metricKey})`,
+					`  ${ metric.caption } (${ metricKey })`,
 					// Before
 					format( metric.a.mean, metric.unit ) +
-						` (± ${format( metric.a.stdev, metric.unit )})`,
+						` (± ${ format( metric.a.stdev, metric.unit ) })`,
 					// After
 					format( metric.b.mean, metric.unit ) +
-						` (± ${format( metric.b.stdev, metric.unit )})`,
+						` (± ${ format( metric.b.stdev, metric.unit ) })`,
 					// Diff
 					format( metric.diff, metric.compareUnit, { plus: true } ),
 					// Symbol (optional)

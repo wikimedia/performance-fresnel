@@ -182,7 +182,7 @@ class Registry {
 		if ( typeof name === 'string' ) {
 			// a probe or report specified by name in .fresnel.yml
 			if ( !( name in this.values ) ) {
-				throw new Error( `Unknown probe name: ${name}` );
+				throw new Error( `Unknown probe name: ${ name }` );
 			}
 			object = Object.assign( { name: name }, this.values[ name ] );
 		} else {

@@ -22,7 +22,7 @@ QUnit.module( 'e2e/cli', ( hooks ) => {
 		orgError = console.error;
 		out = '';
 		console.log = console.error = ( str ) => {
-			out += `${str}\n`;
+			out += `${ str }\n`;
 		};
 
 		tmpDir = mktmpdir( 'fresnel_test' );
@@ -99,33 +99,25 @@ QUnit.module( 'e2e/cli', ( hooks ) => {
 		assert.strictEqual( /DESCRIPTION/.test( out ), true, 'help shown on error' );
 	} );
 
-	QUnit.test( 'help', ( assert ) => {
-		return cli( 'help' )
-			.then( () => {
-				assert.strictEqual( /Usage: fresnel/.test( out ), true, 'output' );
-			} );
-	} );
+	QUnit.test( 'help', ( assert ) => cli( 'help' )
+		.then( () => {
+			assert.strictEqual( /Usage: fresnel/.test( out ), true, 'output' );
+		} ) );
 
-	QUnit.test( 'help record', ( assert ) => {
-		return cli( 'help', 'record' )
-			.then( () => {
-				assert.strictEqual( /DESCRIPTION/.test( out ), true, 'help shown' );
-			} );
-	} );
+	QUnit.test( 'help record', ( assert ) => cli( 'help', 'record' )
+		.then( () => {
+			assert.strictEqual( /DESCRIPTION/.test( out ), true, 'help shown' );
+		} ) );
 
-	QUnit.test( 'help compare', ( assert ) => {
-		return cli( 'help', 'compare' )
-			.then( () => {
-				assert.strictEqual( /DESCRIPTION/.test( out ), true, 'help shown' );
-			} );
-	} );
+	QUnit.test( 'help compare', ( assert ) => cli( 'help', 'compare' )
+		.then( () => {
+			assert.strictEqual( /DESCRIPTION/.test( out ), true, 'help shown' );
+		} ) );
 
-	QUnit.test( 'version', ( assert ) => {
-		return cli( 'version' )
-			.then( () => {
-				assert.strictEqual( /Fresnel \d/.test( out ), true, 'output' );
-			} );
-	} );
+	QUnit.test( 'version', ( assert ) => cli( 'version' )
+		.then( () => {
+			assert.strictEqual( /Fresnel \d/.test( out ), true, 'output' );
+		} ) );
 
 	QUnit.test( 'unknown command', ( assert ) => {
 		assert.rejects( cli( 'whatever' ), 'exit code' );

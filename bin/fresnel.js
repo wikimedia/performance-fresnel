@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 'use strict';
 
-/* eslint-disable no-process-exit */
-
 // argv: 0 = bin/node
 // 1 = bin/fresnel
 // 2... = command and any params

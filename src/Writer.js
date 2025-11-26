@@ -17,7 +17,7 @@ function validateName( name ) {
 		// Traversal on different operating systems
 		/[/?<>\\:*|":]/.test( name )
 	) {
-		throw new Error( `Invalid file name: "${name}"` );
+		throw new Error( `Invalid file name: "${ name }"` );
 	}
 }
 
